@@ -154,6 +154,8 @@ footer a:hover {
     background: url('../assets/images/img_pen-body.png') no-repeat 50% 0;
     background-size: 90px auto;
     min-height: 580px;
+    z-index: 3;
+    position: relative;
   }
   .parts li.part4 {
     background-position: 50% -618px;
@@ -162,10 +164,33 @@ footer a:hover {
   .parts li.part5 {
     background-position: 50% -1154px;
     min-height: 150px;
+    z-index: 2;
+    position: relative;
   }
   .parts li.part6 {
     background-position: 50% -1437px;
     min-height: 150px;
+  }
+
+  /* =Fade In Text */
+  .parts li h2,
+  .parts li p {
+    transition: all 0.3s ease-in;
+    opacity: 0;
+    visibility: hidden;
+  }
+  .parts li.fade-in h2,
+  .parts li.fade-in p {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+  }
+  .parts li h2 {
+    transform: translateX(-20px);
+  }
+  .parts li p {
+    transform: translateX(20px);
+    transition-delay: 0.15s;
   }
 
   /* =Header */
