@@ -1,7 +1,19 @@
 import React, { Component } from "react";
+import { TweenMax } from "gsap/all";
 import imgPen from '../assets/images/img_pen-landscape.png'
 
 class Pen extends Component {
+
+    constructor(props) {
+        super(props);
+        // part1 trigger
+        this.part1Trigger = null;
+    }
+
+    componentDidMount() {
+        // move the pen body up to connect with the first part
+        TweenMax.set('.part3', { y: -572 })
+    }
     render() {
         return (
 
