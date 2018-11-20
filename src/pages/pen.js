@@ -84,15 +84,17 @@ class Pen extends Component {
         // Loop through all parts and add a class .fade-in
         const arrayLi = document.getElementsByClassName('parts')[0].getElementsByTagName("li");
         console.log(arrayLi)
-        // [...arrayLi].map((item) => {
-        //     const scene = new ScrollMagic.Scene({
-        //         triggerElement: item,
-        //         triggerHook: 0.55
-        //     })
-        //         .setClassToggle(item, 'fade-in')
-        //         .addTo(controller);
-        //     console.log(item);
-        // })
+        let items = Array.from(arrayLi)
+        console.log(items);
+        items.map((item) => {
+            const scene = new ScrollMagic.Scene({
+                triggerElement: item,
+                triggerHook: 0.55
+            })
+                .setClassToggle(item, 'fade-in')
+                .addTo(controller);
+            console.log(item);
+        })
     }
     render() {
         return (
