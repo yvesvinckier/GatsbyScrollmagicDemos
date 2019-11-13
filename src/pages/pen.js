@@ -2,7 +2,7 @@ import React, { Component } from "react";
 // import ScrollMagic from "../utils/ScrollMagic"; // my own wrapper for scrollmagic that includes greensock
 // import { TweenMax, Linear } from "gsap";
 import ScrollMagic from "scrollmagic";
-import { TweenMax, Linear } from "TweenMax";
+import { TweenMax, Linear } from "gsap";
 import "animation.gsap";
 import "debug.addIndicators"
 import imgPen from '../assets/images/img_pen-landscape.png'
