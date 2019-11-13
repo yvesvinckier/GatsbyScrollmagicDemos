@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { TweenMax, Linear } from "gsap/all";
 import ScrollMagic from "../utils/ScrollMagic"; // my own wrapper for scrollmagic that includes greensock
+import { TweenMax, Linear } from "gsap";
 import imgPen from '../assets/images/img_pen-landscape.png'
+
 
 class Pen extends Component {
 
@@ -9,15 +10,20 @@ class Pen extends Component {
         super(props);
         // part1 trigger
         this.part1Trigger = null;
+        this.part2Trigger = null;
+        this.part3Trigger = null;
+        this.part4Trigger = null;
+        this.part5Trigger = null;
+        this.part6Trigger = null;
     }
 
     componentDidMount() {
         // move the pen body up to connect with the first part
-        TweenMax.set('.part3', { y: -572 })
+        TweenMax.set(this.part3Trigger, { y: -572 })
         // hide all headings and text
         // TweenMax.set(['.parts h2, .parts p'], { autoAlpha: 0 })
         // create a tween that will move the pen body back to its original css position
-        const bodyToStart = TweenMax.to('.part3', 1, {
+        const bodyToStart = TweenMax.to(this.part3Trigger, 1, {
             y: 0,
             ease: Linear.easeNone,
         })
@@ -38,14 +44,14 @@ class Pen extends Component {
         // TweenMax.set('.part4', {y: 289});
 
         // move part 6 to connect with the body
-        TweenMax.set('.part6', { y: -846 });
+        TweenMax.set(this.part6Trigger, { y: -846 });
 
         // move 4 and 5 to connect with part 6 again
-        TweenMax.set('.part5', { y: -726 }); /* 120 - 846 */
-        TweenMax.set('.part4', { y: -557 }); /* 289 - 846 */
+        TweenMax.set(this.part5Trigger, { y: -726 }); /* 120 - 846 */
+        TweenMax.set(this.part4Trigger, { y: -557 }); /* 289 - 846 */
 
         // Create scene for part 6 - move part 6 back to start
-        const p6ToStart = new TweenMax.to('.part6', 1, { y: 0, ease: Linear.easeNone });
+        const p6ToStart = TweenMax.to('.part6', 1, { y: 0, ease: Linear.easeNone });
 
         const p6ToStartScene = new ScrollMagic.Scene({
             triggerElement: this.part1Trigger,
@@ -58,7 +64,7 @@ class Pen extends Component {
             .addTo(controller);
 
         // Create scene for part 5 - move part 5 back to start
-        const p5ToStart = new TweenMax.to('.part5', 1, { y: 0, ease: Linear.easeNone });
+        const p5ToStart = TweenMax.to(this.part5Trigger, 1, { y: 0, ease: Linear.easeNone });
 
         const p5ToStartScene = new ScrollMagic.Scene({
             triggerElement: this.part1Trigger,
@@ -70,7 +76,7 @@ class Pen extends Component {
             .addTo(controller);
 
         // Create scene for part 4 - move part 4 back to start
-        const p4ToStart = new TweenMax.to('.part4', 1, { y: 0, ease: Linear.easeNone });
+        const p4ToStart = TweenMax.to(this.part4Trigger, 1, { y: 0, ease: Linear.easeNone });
 
         const p4ToStartScene = new ScrollMagic.Scene({
             triggerElement: this.part1Trigger,
@@ -142,35 +148,40 @@ class Pen extends Component {
                                         Nullam in dui mauris.
                   </p>
                                 </li>
-                                <li className="part2">
+                                <li className="part2"
+                                    ref={li => this.part2Trigger = li}>
                                     <h2>Heading 2</h2>
                                     <p>
                                         Vivamus hendrerit in dui arcu sed erat molestie vehicula.
                                         Nullam in dui mauris.
                   </p>
                                 </li>
-                                <li className="part3">
+                                <li className="part3"
+                                    ref={li => this.part3Trigger = li}>
                                     <h2>Heading 3</h2>
                                     <p>
                                         Vivamus hendrerit in dui arcu sed erat molestie vehicula.
                                         Nullam in dui mauris.
                   </p>
                                 </li>
-                                <li className="part4">
+                                <li className="part4"
+                                    ref={li => this.part4Trigger = li}>
                                     <h2>Heading 4</h2>
                                     <p>
                                         Vivamus hendrerit in dui arcu sed erat molestie vehicula.
                                         Nullam in dui mauris.
                   </p>
                                 </li>
-                                <li className="part5">
+                                <li className="part5"
+                                    ref={li => this.part5Trigger = li}>
                                     <h2>Heading 5</h2>
                                     <p>
                                         Vivamus hendrerit in dui arcu sed erat molestie vehicula.
                                         Nullam in dui mauris.
                   </p>
                                 </li>
-                                <li className="part6">
+                                <li className="part6"
+                                    ref={li => this.part6Trigger = li}>
                                     <h2>Heading 6</h2>
                                     <p>
                                         Vivamus hendrerit in dui arcu sed erat molestie vehicula.
