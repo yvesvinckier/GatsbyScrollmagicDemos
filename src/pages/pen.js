@@ -1,6 +1,10 @@
 import React, { Component } from "react";
-import ScrollMagic from "../utils/ScrollMagic"; // my own wrapper for scrollmagic that includes greensock
-import { TweenMax, Linear } from "gsap";
+// import ScrollMagic from "../utils/ScrollMagic"; // my own wrapper for scrollmagic that includes greensock
+// import { TweenMax, Linear } from "gsap";
+import ScrollMagic from "scrollmagic";
+import { TweenMax, Linear } from "TweenMax";
+import "animation.gsap";
+import "debug.addIndicators"
 import imgPen from '../assets/images/img_pen-landscape.png'
 
 
@@ -37,7 +41,8 @@ class Pen extends Component {
             duration: 572
         })
             .setTween(bodyToStart)
-            .addTo(controller);
+            .addIndicators()
+            .addTo(controller)
 
         // move 4 and 5 down, to connect with part 6 - HOW?
         // TweenMax.set('.part5', {y: 120});
