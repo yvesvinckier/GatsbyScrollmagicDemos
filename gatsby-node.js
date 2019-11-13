@@ -17,19 +17,18 @@ exports.onCreateWebpackConfig = ({
 }) => {
     actions.setWebpackConfig({
         module: {
-            rules:
-                stage === 'build-html'
-                    ? [
-                        {
-                            test: /ScrollMagic/,
-                            use: loaders.null(),
-                        },
-                        {
-                            test: /scrollmagic/,
-                            use: loaders.null(),
-                        },
-                    ]
-                    : [],
+            rules: stage === 'build-html'
+                ? [
+                    {
+                        test: /ScrollMagic/,
+                        use: loaders.null(),
+                    },
+                    {
+                        test: /scrollmagic/,
+                        use: loaders.null(),
+                    },
+                ]
+                : []
         },
         resolve: {
             alias: {
