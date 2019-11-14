@@ -1,9 +1,17 @@
-import React, { Component } from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import iphoneOne from '../assets/images/iphone-1.png'
 import iphoneThree from '../assets/images/iphone-3.png'
 import iphoneRight from '../assets/images/iphone-right.png'
 import iphoneLeft from '../assets/images/iphone-left.png'
+import { TimelineMax } from 'gsap'
+// import ScrollMagic from 'ScrollMagic'
+
+// import 'animation.gsap'
+// import 'debug.addIndicators'
+
+// require('animation.gsap')
+// require('debug.addIndicators')
 
 const FirstSection = styled.section`
   position: relative;
@@ -21,6 +29,8 @@ const FirstSection = styled.section`
     margin-block-end: 0.83em;
     font-size: 50px;
     font-weight: 500;
+    font-family: 'SF Pro Display', 'SF Pro Icons', 'Helvetica Neue', 'Helvetica',
+      'Arial', sans-serif;
     color: #ffe5db;
     line-height: 1.23;
   }
@@ -108,53 +118,63 @@ const SecondSection = styled.section`
   }
 `
 
-class apple extends Component {
-  render() {
-    return (
-      <>
-        <FirstSection>
-          <div className="grid-12 trigger1">
-            <h2 className="position-h2">
-              The custom OLED displays on iPhone&nbsp;X deliver the most
-              accurate color in the industry, HDR, and true blacks. And
-              iPhone&nbsp;XMax has our largest display ever on an&nbsp;iPhone.
-            </h2>
-          </div>
-        </FirstSection>
-        <SecondSection>
-          <div className="trigger2">
-            <div className="iphone-image-wrapper">
-              <div className="iphone1-text">
-                <p>iPhone Xs Max</p>
-                <p>6.5" dsiplay</p>
-              </div>
-              <div className="iphone-image iphone1">
-                <div className="inner-phone">
-                  <img className="iphone1-img" src={iphoneOne} alt="" />
-                  <img className="iphone-stick" src={iphoneThree} alt="" />
-                  <img className="iphone1-img-behind" src={iphoneLeft} alt="" />
-                </div>
-              </div>
-              <div className="iphone-image iphone2">
-                <div className="inner-phone">
-                  <img className="iphone2-img" src={iphoneOne} alt="" />
-                  <img
-                    className="iphone2-img-behind"
-                    src={iphoneRight}
-                    alt=""
-                  />
-                </div>
-              </div>
-              <div className="iphone2-text">
-                <p>iPhone Xs Max</p>
-                <p>5.8" display</p>
+const Apple = () => {
+  useEffect(() => {
+    // var controller = new ScrollMagic.Controller()
+    const tlFirstScroll = new TimelineMax()
+    tlFirstScroll.set('.iphone-image-wrapper', {
+      scale: 4,
+      transformOrigin: 'center top',
+    })
+    // var scene = new ScrollMagic.Scene({
+    //   triggerElement: '.trigger1',
+    //   triggerHook: 1,
+    //   duration: '100%',
+    // })
+    //   .setTween(tlFirstScroll)
+    //   .addTo(controller)
+  }, [])
+
+  return (
+    <>
+      <FirstSection>
+        <div className="grid-12 trigger1">
+          <h2 className="position-h2">
+            The custom OLED displays on iPhone&nbsp;X deliver the most accurate
+            color in the industry, HDR, and true blacks. And iPhone&nbsp;XMax
+            has our largest display ever on an&nbsp;iPhone.
+          </h2>
+        </div>
+      </FirstSection>
+      <SecondSection>
+        <div className="trigger2">
+          <div className="iphone-image-wrapper">
+            <div className="iphone1-text">
+              <p>iPhone Xs Max</p>
+              <p>6.5" dsiplay</p>
+            </div>
+            <div className="iphone-image iphone1">
+              <div className="inner-phone">
+                <img className="iphone1-img" src={iphoneOne} alt="" />
+                <img className="iphone-stick" src={iphoneThree} alt="" />
+                <img className="iphone1-img-behind" src={iphoneLeft} alt="" />
               </div>
             </div>
+            <div className="iphone-image iphone2">
+              <div className="inner-phone">
+                <img className="iphone2-img" src={iphoneOne} alt="" />
+                <img className="iphone2-img-behind" src={iphoneRight} alt="" />
+              </div>
+            </div>
+            <div className="iphone2-text">
+              <p>iPhone Xs Max</p>
+              <p>5.8" display</p>
+            </div>
           </div>
-        </SecondSection>
-      </>
-    )
-  }
+        </div>
+      </SecondSection>
+    </>
+  )
 }
 
-export default apple
+export default Apple
