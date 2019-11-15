@@ -46,6 +46,9 @@ const SecondSection = styled.section`
   height: 100vh;
   width: 100vw;
   background: #000;
+  .trigger2{
+    background: #000;
+  }
   .iphone-image-wrapper {
     height: 100vh;
     width: 100%;
@@ -77,10 +80,16 @@ const SecondSection = styled.section`
     .iphone1-text {
       grid-column: 1;
       text-align: right;
+      p{
+        font-family: "SF Pro Display","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif;
+      }
     }
 
     .iphone2-text {
       grid-column: 3;
+      p{
+        font-family: "SF Pro Display","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif;
+      }
     }
 
     .iphone1-img {
@@ -144,12 +153,23 @@ const Apple = () => {
 
     const tlSecondScroll = new TimelineMax()
     tlSecondScroll
-      .to('.iphone1', 3, { x: "-50%" })
-      .to('.iphone2', 3, { x: "50%" }, "-=3")
+      .to('.iphone1', 3, { x: "-54%" })
+      .to('.iphone2', 3, { x: "54%" }, "-=3")
       .from('.iphone1-text', 0.3, { autoAlpha: 0 }, "-=3")
       .from('.iphone2-text', 0.3, { autoAlpha: 0 }, "-=3")
       .to('.iphone1-text', 3, { x: "-30%" }, "-=3")
       .to('.iphone2-text', 3, { x: "30%" }, "-=3")
+
+      .set('.iphone-stick', { display: "block" })
+
+      .to('.iphone1-img-behind', 3, { x: "-50%" })
+      .to('.iphone2-img-behind', 3, { x: "50%" }, "-=3")
+
+      .to('.iphone1-img', 0.5, { autoAlpha: 0 }, "-=3")
+      .to('.iphone2-img', 0.5, { autoAlpha: 0 }, "-=3")
+
+      .to('.iphone1-text', 0.3, { autoAlpha: 0 }, "-=3")
+      .to('.iphone2-text', 0.3, { autoAlpha: 0 }, "-=3")
 
     const scene2 = new ScrollMagic.Scene({
       triggerElement: '.trigger2',
