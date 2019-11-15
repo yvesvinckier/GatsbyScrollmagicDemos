@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import iphoneOne from '../assets/images/iphone-1.png'
@@ -5,13 +6,13 @@ import iphoneThree from '../assets/images/iphone-3.png'
 import iphoneRight from '../assets/images/iphone-right.png'
 import iphoneLeft from '../assets/images/iphone-left.png'
 import { TimelineMax } from 'gsap'
-// import ScrollMagic from 'ScrollMagic'
+import ScrollMagic from 'ScrollMagic'
 
 // import 'animation.gsap'
 // import 'debug.addIndicators'
 
-// require('animation.gsap')
-// require('debug.addIndicators')
+require('animation.gsap')
+require('debug.addIndicators')
 
 const FirstSection = styled.section`
   position: relative;
@@ -27,12 +28,12 @@ const FirstSection = styled.section`
   h2 {
     margin-block-start: 0.83em;
     margin-block-end: 0.83em;
-    font-size: 50px;
+    font-size: 28px;
+    line-height: 1.14286;
     font-weight: 500;
-    font-family: 'SF Pro Display', 'SF Pro Icons', 'Helvetica Neue', 'Helvetica',
-      'Arial', sans-serif;
+    font-family: "SF Pro Display","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif;
     color: #ffe5db;
-    line-height: 1.23;
+    letter-spacing: .007em;
   }
   .position-h2 {
     grid-row: 7;
@@ -120,19 +121,46 @@ const SecondSection = styled.section`
 
 const Apple = () => {
   useEffect(() => {
-    // var controller = new ScrollMagic.Controller()
+
     const tlFirstScroll = new TimelineMax()
-    tlFirstScroll.set('.iphone-image-wrapper', {
-      scale: 4,
-      transformOrigin: 'center top',
+    tlFirstScroll
+      .set('.iphone-image-wrapper', {
+        scale: 4,
+        transformOrigin: 'center top',
+      })
+      .to('.iphone-image-wrapper', 3, { scale: 2.2, y: "-50%" })
+      .to('.iphone-image-wrapper', 3, { scale: 1, y: "0%" })
+
+    var controller = new ScrollMagic.Controller()
+
+    const scene1 = new ScrollMagic.Scene({
+      triggerElement: '.trigger1',
+      triggerHook: 0,
+      duration: '100%'
     })
-    // var scene = new ScrollMagic.Scene({
-    //   triggerElement: '.trigger1',
-    //   triggerHook: 1,
-    //   duration: '100%',
-    // })
-    //   .setTween(tlFirstScroll)
-    //   .addTo(controller)
+      .setTween(tlFirstScroll)
+      .addIndicators()
+      .addTo(controller)
+
+    const tlSecondScroll = new TimelineMax()
+    tlSecondScroll
+      .to('.iphone1', 3, { x: "-50%" })
+      .to('.iphone2', 3, { x: "50%" }, "-=3")
+      .from('.iphone1-text', 0.3, { autoAlpha: 0 }, "-=3")
+      .from('.iphone2-text', 0.3, { autoAlpha: 0 }, "-=3")
+      .to('.iphone1-text', 3, { x: "-30%" }, "-=3")
+      .to('.iphone2-text', 3, { x: "30%" }, "-=3")
+
+    const scene2 = new ScrollMagic.Scene({
+      triggerElement: '.trigger2',
+      triggerHook: 0,
+      duration: '100%'
+    })
+      .setTween(tlSecondScroll)
+      .setPin('.trigger2')
+      .addIndicators()
+      .addTo(controller)
+
   }, [])
 
   return (
