@@ -12,6 +12,9 @@ import IphoneThree from '../assets/images/iphone-3.png'
 import IphoneRight from '../assets/images/iphone-right.png'
 import IphoneLeft from '../assets/images/iphone-left.png'
 
+import Man from '../assets/images/display_pro__9ci00tik8gyi_large.jpg'
+import MacBookMan from '../assets/images/display_fallback__upfw42u3jdum_large.jpg'
+
 import Large0000 from '../assets/sequence/large_0000.jpg'
 import Large0001 from '../assets/sequence/large_0001.jpg'
 import Large0002 from '../assets/sequence/large_0002.jpg'
@@ -43,9 +46,37 @@ import Large0027 from '../assets/sequence/large_0027.jpg'
 import Large0028 from '../assets/sequence/large_0028.jpg'
 import Large0029 from '../assets/sequence/large_0029.jpg'
 import Large0030 from '../assets/sequence/large_0030.jpg'
+import Large0031 from '../assets/sequence/large_0031.jpg'
+import Large0032 from '../assets/sequence/large_0032.jpg'
+import Large0033 from '../assets/sequence/large_0033.jpg'
+import Large0034 from '../assets/sequence/large_0034.jpg'
+import Large0035 from '../assets/sequence/large_0035.jpg'
+import Large0036 from '../assets/sequence/large_0036.jpg'
+import Large0037 from '../assets/sequence/large_0037.jpg'
+import Large0038 from '../assets/sequence/large_0038.jpg'
+import Large0039 from '../assets/sequence/large_0039.jpg'
 import Large0040 from '../assets/sequence/large_0040.jpg'
+import Large0041 from '../assets/sequence/large_0041.jpg'
+import Large0042 from '../assets/sequence/large_0042.jpg'
+import Large0043 from '../assets/sequence/large_0043.jpg'
+import Large0044 from '../assets/sequence/large_0044.jpg'
+import Large0045 from '../assets/sequence/large_0045.jpg'
+import Large0046 from '../assets/sequence/large_0046.jpg'
+import Large0047 from '../assets/sequence/large_0047.jpg'
+import Large0048 from '../assets/sequence/large_0048.jpg'
+import Large0049 from '../assets/sequence/large_0049.jpg'
 import Large0050 from '../assets/sequence/large_0050.jpg'
+import Large0051 from '../assets/sequence/large_0051.jpg'
+import Large0052 from '../assets/sequence/large_0052.jpg'
+import Large0053 from '../assets/sequence/large_0053.jpg'
+import Large0054 from '../assets/sequence/large_0054.jpg'
+import Large0055 from '../assets/sequence/large_0055.jpg'
+import Large0056 from '../assets/sequence/large_0056.jpg'
+import Large0057 from '../assets/sequence/large_0057.jpg'
+import Large0058 from '../assets/sequence/large_0058.jpg'
+import Large0059 from '../assets/sequence/large_0059.jpg'
 import Large0060 from '../assets/sequence/large_0060.jpg'
+import Large0061 from '../assets/sequence/large_0061.jpg'
 
 const FirstSection = styled.section`
   position: relative;
@@ -192,6 +223,58 @@ const ThirdSection = styled.section`
     }
   }
 `
+const FourthSection = styled.section`
+  .slide {
+    position: relative;
+    overflow: hidden;
+    height: 100vh;
+    .pin-wrapper {
+      width: 100%;
+      height: 100%;
+    }
+    .wrapper {
+      position: absolute;
+      top: 45%;
+      left: 50%;
+      width: 90%;
+      max-width: 350px;
+      margin: 0 10%;
+      h1 {
+        color: black;
+      }
+    }
+  }
+  .img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    background: url(${Man}) no-repeat;
+    transform: translate(-50%, -50%);
+    background-size: cover;
+  }
+  #slide02 .img {
+    background-image: url(${MacBookMan});
+  }
+
+  #slide01,
+  #slide05 {
+    background-color: #fff;
+  }
+
+  #slide00,
+  #slide02 {
+    background-color: #ededed;
+  }
+  #slide02 .pin-wrapper {
+    transform: translateY(-100%);
+  }
+  .scrollmagic-pin-spacer {
+    position: absolute !important;
+    clip: rect(auto, auto, auto, auto);
+  }
+`
 
 const Apple = () => {
   useEffect(() => {
@@ -276,10 +359,36 @@ const Apple = () => {
       Large0027,
       Large0028,
       Large0029,
-      Large0030,
-      Large0040,
+      Large0031,
+      Large0032,
+      Large0033,
+      Large0034,
+      Large0035,
+      Large0036,
+      Large0037,
+      Large0038,
+      Large0039,
+      Large0041,
+      Large0042,
+      Large0043,
+      Large0044,
+      Large0045,
+      Large0046,
+      Large0047,
+      Large0048,
+      Large0049,
       Large0050,
+      Large0051,
+      Large0052,
+      Large0053,
+      Large0054,
+      Large0055,
+      Large0056,
+      Large0057,
+      Large0058,
+      Large0059,
       Large0060,
+      Large0061,
     ]
     var obj = { curImg: 0 }
     var UpdateImage = document.getElementById('myimg')
@@ -289,7 +398,7 @@ const Apple = () => {
       roundProps: 'curImg', // only integers so it can be used as an array index
       immediateRender: true, // load first image automatically
       ease: Linear.easeNone, // show every image the same ammount of time
-      onUpdate: function () {
+      onUpdate: function() {
         UpdateImage.setAttribute('src', images[obj.curImg])
       },
     })
@@ -300,7 +409,23 @@ const Apple = () => {
     })
       .setTween(SequenceTween)
       .setPin('.trigger3')
-      .addIndicators()
+      // .addIndicators()
+      .addTo(controller)
+
+    var PinScene4 = new ScrollMagic.Scene({
+      triggerElement: '#slide01',
+      triggerHook: 0,
+      duration: '100%',
+    })
+      .setPin('#slide01 .pin-wrapper')
+      .addTo(controller)
+
+    var PinScene5 = new ScrollMagic.Scene({
+      triggerElement: '#slide01',
+      triggerHook: 0,
+      duration: '100%',
+    })
+      .setPin('#slide02 .pin-wrapper')
       .addTo(controller)
   }, [])
 
@@ -352,6 +477,54 @@ const Apple = () => {
           </div>
         </div>
       </SecondSection>
+
+      <FourthSection>
+        <article id="slide00" className="slide">
+          <div className="wrapper">
+            <h1>INTRODUCTION</h1>
+            <p>
+              Vivamus hendrerit arcu sed erat molestie vehicula. Sed auctor
+              neque eu tellus rhoncus ut eleifend nibh porttitor.
+            </p>
+          </div>
+        </article>
+
+        <article id="slide01" className="slide">
+          <div className="pin-wrapper">
+            <div className="img"></div>
+            <div className="wrapper">
+              <h1>TITLE ONE</h1>
+              <p>
+                Curabitur vulputate, ligula lacinia scelerisque tempor, lacus
+                lacus ornare ante, ac egestas.
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <article id="slide02" className="slide">
+          <div className="pin-wrapper">
+            <div className="img"></div>
+            <div className="wrapper">
+              <h1>TITLE TWO</h1>
+              <p>
+                Proin quis tortor orci. Etiam at risus et justo dignissim
+                congue. Donec congue lacinia dui, a porttitor lectus.
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <article id="slide05" className="slide">
+          <div className="wrapper">
+            <h1>UNPINNED SLIDE</h1>
+            <p>
+              Vivamus hendrerit arcu sed erat molestie vehicula. Sed auctor
+              neque eu tellus rhoncus ut eleifend nibh porttitor.
+            </p>
+          </div>
+        </article>
+      </FourthSection>
     </>
   )
 }
