@@ -77,6 +77,67 @@ import Large0058 from '../assets/sequence/large_0058.jpg'
 import Large0059 from '../assets/sequence/large_0059.jpg'
 import Large0060 from '../assets/sequence/large_0060.jpg'
 import Large0061 from '../assets/sequence/large_0061.jpg'
+import Large0062 from '../assets/sequence/large_0062.jpg'
+import Large0063 from '../assets/sequence/large_0063.jpg'
+import Large0064 from '../assets/sequence/large_0064.jpg'
+import Large0065 from '../assets/sequence/large_0065.jpg'
+import Large0066 from '../assets/sequence/large_0066.jpg'
+import Large0067 from '../assets/sequence/large_0067.jpg'
+import Large0068 from '../assets/sequence/large_0068.jpg'
+import Large0069 from '../assets/sequence/large_0069.jpg'
+import Large0070 from '../assets/sequence/large_0070.jpg'
+import Large0071 from '../assets/sequence/large_0071.jpg'
+import Large0072 from '../assets/sequence/large_0072.jpg'
+import Large0073 from '../assets/sequence/large_0073.jpg'
+import Large0074 from '../assets/sequence/large_0074.jpg'
+import Large0075 from '../assets/sequence/large_0075.jpg'
+import Large0076 from '../assets/sequence/large_0076.jpg'
+import Large0077 from '../assets/sequence/large_0077.jpg'
+import Large0078 from '../assets/sequence/large_0078.jpg'
+import Large0079 from '../assets/sequence/large_0079.jpg'
+import Large0080 from '../assets/sequence/large_0080.jpg'
+import Large0081 from '../assets/sequence/large_0081.jpg'
+import Large0082 from '../assets/sequence/large_0082.jpg'
+import Large0083 from '../assets/sequence/large_0083.jpg'
+import Large0084 from '../assets/sequence/large_0084.jpg'
+import Large0085 from '../assets/sequence/large_0085.jpg'
+import Large0086 from '../assets/sequence/large_0086.jpg'
+import Large0087 from '../assets/sequence/large_0087.jpg'
+import Large0088 from '../assets/sequence/large_0088.jpg'
+import Large0089 from '../assets/sequence/large_0089.jpg'
+import Large0090 from '../assets/sequence/large_0090.jpg'
+import Large0091 from '../assets/sequence/large_0091.jpg'
+import Large0092 from '../assets/sequence/large_0092.jpg'
+import Large0093 from '../assets/sequence/large_0093.jpg'
+import Large0094 from '../assets/sequence/large_0094.jpg'
+import Large0095 from '../assets/sequence/large_0095.jpg'
+import Large0096 from '../assets/sequence/large_0096.jpg'
+import Large0097 from '../assets/sequence/large_0097.jpg'
+import Large0098 from '../assets/sequence/large_0098.jpg'
+import Large0099 from '../assets/sequence/large_0099.jpg'
+import Large0100 from '../assets/sequence/large_0100.jpg'
+import Large0101 from '../assets/sequence/large_0101.jpg'
+import Large0102 from '../assets/sequence/large_0102.jpg'
+import Large0103 from '../assets/sequence/large_0103.jpg'
+import Large0104 from '../assets/sequence/large_0104.jpg'
+import Large0105 from '../assets/sequence/large_0105.jpg'
+import Large0106 from '../assets/sequence/large_0106.jpg'
+import Large0107 from '../assets/sequence/large_0107.jpg'
+import Large0108 from '../assets/sequence/large_0108.jpg'
+import Large0109 from '../assets/sequence/large_0109.jpg'
+import Large0110 from '../assets/sequence/large_0110.jpg'
+import Large0111 from '../assets/sequence/large_0111.jpg'
+import Large0112 from '../assets/sequence/large_0112.jpg'
+import Large0113 from '../assets/sequence/large_0113.jpg'
+import Large0114 from '../assets/sequence/large_0114.jpg'
+import Large0115 from '../assets/sequence/large_0115.jpg'
+import Large0116 from '../assets/sequence/large_0116.jpg'
+import Large0117 from '../assets/sequence/large_0117.jpg'
+import Large0118 from '../assets/sequence/large_0118.jpg'
+import Large0119 from '../assets/sequence/large_0119.jpg'
+import Large0120 from '../assets/sequence/large_0120.jpg'
+import Large0121 from '../assets/sequence/large_0121.jpg'
+import Large0122 from '../assets/sequence/large_0122.jpg'
 
 const FirstSection = styled.section`
   position: relative;
@@ -359,6 +420,7 @@ const Apple = () => {
       Large0027,
       Large0028,
       Large0029,
+      Large0030,
       Large0031,
       Large0032,
       Large0033,
@@ -389,6 +451,67 @@ const Apple = () => {
       Large0059,
       Large0060,
       Large0061,
+      Large0062,
+      Large0063,
+      Large0064,
+      Large0065,
+      Large0066,
+      Large0067,
+      Large0068,
+      Large0069,
+      Large0070,
+      Large0071,
+      Large0072,
+      Large0073,
+      Large0074,
+      Large0075,
+      Large0076,
+      Large0077,
+      Large0078,
+      Large0079,
+      Large0080,
+      Large0081,
+      Large0082,
+      Large0083,
+      Large0084,
+      Large0085,
+      Large0086,
+      Large0087,
+      Large0088,
+      Large0089,
+      Large0090,
+      Large0091,
+      Large0092,
+      Large0093,
+      Large0094,
+      Large0095,
+      Large0096,
+      Large0097,
+      Large0098,
+      Large0099,
+      Large0100,
+      Large0101,
+      Large0102,
+      Large0103,
+      Large0104,
+      Large0105,
+      Large0106,
+      Large0107,
+      Large0108,
+      Large0109,
+      Large0110,
+      Large0111,
+      Large0112,
+      Large0113,
+      Large0114,
+      Large0115,
+      Large0116,
+      Large0117,
+      Large0118,
+      Large0119,
+      Large0120,
+      Large0121,
+      Large0122,
     ]
     var obj = { curImg: 0 }
     var UpdateImage = document.getElementById('myimg')
@@ -410,6 +533,15 @@ const Apple = () => {
       .setTween(SequenceTween)
       .setPin('.trigger3')
       // .addIndicators()
+      .addTo(controller)
+
+    var scene4 = new ScrollMagic.Scene({
+      triggerElement: '.trigger3',
+      triggerHook: 0,
+      duration: '100%',
+    })
+      .setPin('.trigger1')
+      .addIndicators()
       .addTo(controller)
 
     var PinScene4 = new ScrollMagic.Scene({
@@ -441,8 +573,8 @@ const Apple = () => {
           </div>
         </div>
       </ThirdSection>
-      <FirstSection>
-        <div className="grid-12 trigger1">
+      <FirstSection className="trigger1">
+        <div className="grid-12">
           <h2 className="position-h2">
             The custom OLED displays on iPhone&nbsp;X deliver the most accurate
             color in the industry, HDR, and true blacks. And iPhone&nbsp;XMax
