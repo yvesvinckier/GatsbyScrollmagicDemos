@@ -139,7 +139,53 @@ import Large0120 from '../assets/sequence/large_0120.jpg'
 import Large0121 from '../assets/sequence/large_0121.jpg'
 import Large0122 from '../assets/sequence/large_0122.jpg'
 
-const FirstSection = styled.section`
+const FirstSec = styled.section`
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  background: #fff;
+  .macbook-image-wrapper {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 79px;
+    margin-top: 141px;
+    h1 {
+      font-size: 32px;
+      line-height: 1.16667;
+      font-weight: 700;
+      letter-spacing: .009em;
+      font-family: "SF Pro Display","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif;
+      color: #1d1d1f;
+    }
+    h2 {
+      font-size: 110px;
+      font-weight: 700;
+      font-family: 'SF Pro Display', 'SF Pro Icons', 'Helvetica Neue',
+        'Helvetica', 'Arial', sans-serif;
+      color: #1d1d1f;
+      text-align: center;
+      margin-top: 8px;
+      line-height: 0.9;
+      letter-spacing: -.009em;
+      height: 400px
+    }
+    .macbook-image {
+      position: absolute;
+      text-align: center;
+      bottom: 0;
+      z-index: -1;
+      img {
+        width: 75%;
+      }
+    }
+  }
+`
+
+const SecondSec = styled.section`
   position: relative;
   height: 100vh;
   width: 100vw;
@@ -256,34 +302,6 @@ const SecondSection = styled.section`
   }
 `
 
-const ThirdSection = styled.section`
-  position: relative;
-  height: 100vh;
-  width: 100vw;
-  background: #fff;
-  .macbook-image-wrapper {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    h2 {
-      font-size: 80px;
-      font-weight: 700;
-      font-family: 'SF Pro Display', 'SF Pro Icons', 'Helvetica Neue',
-        'Helvetica', 'Arial', sans-serif;
-      color: #1d1d1f;
-      text-align: center;
-    }
-    .macbook-image {
-      text-align: center;
-      img {
-        width: 70%;
-      }
-    }
-  }
-`
 const FourthSection = styled.section`
   .slide {
     position: relative;
@@ -521,7 +539,7 @@ const Apple = () => {
       roundProps: 'curImg', // only integers so it can be used as an array index
       immediateRender: true, // load first image automatically
       ease: Linear.easeNone, // show every image the same ammount of time
-      onUpdate: function() {
+      onUpdate: function () {
         UpdateImage.setAttribute('src', images[obj.curImg])
       },
     })
@@ -563,17 +581,18 @@ const Apple = () => {
 
   return (
     <>
-      <ThirdSection>
+      <FirstSec>
         <div className="trigger3">
           <div className="macbook-image-wrapper">
-            <h2>Le nouveau prodige.</h2>
+            <h1>MacBook Pro</h1>
+            <h2>Le nouveau <br /> prodige.</h2>
             <div className="macbook-image">
               <img id="myimg" src={Large0000} alt="" />
             </div>
           </div>
         </div>
-      </ThirdSection>
-      <FirstSection className="trigger1">
+      </FirstSec>
+      <SecondSec className="trigger1">
         <div className="grid-12">
           <h2 className="position-h2">
             The custom OLED displays on iPhone&nbsp;X deliver the most accurate
@@ -581,7 +600,7 @@ const Apple = () => {
             has our largest display ever on an&nbsp;iPhone.
           </h2>
         </div>
-      </FirstSection>
+      </SecondSec>
       <SecondSection>
         <div className="trigger2">
           <div className="iphone-image-wrapper">
