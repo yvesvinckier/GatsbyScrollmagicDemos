@@ -1,7 +1,7 @@
 /* eslint-disable */
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import styled from 'styled-components'
-import { TimelineMax, Linear, TweenMax } from 'gsap'
+import { TimelineMax, Linear, TweenMax, Sine } from 'gsap'
 import ScrollMagic from 'ScrollMagic'
 
 import 'animation.gsap'
@@ -139,7 +139,7 @@ import Large0120 from '../assets/sequence/large_0120.jpg'
 import Large0121 from '../assets/sequence/large_0121.jpg'
 import Large0122 from '../assets/sequence/large_0122.jpg'
 
-const FirstSec = styled.div`
+const HeroSec = styled.div`
   height: 100vh;
   background: #fff;
   width: 100vw;
@@ -153,6 +153,8 @@ const FirstSec = styled.div`
     align-items: center;
     padding-bottom: 79px;
     padding-top: 141px;
+    text-align: center;
+    color: ${props => props.theme.colors.base};
     h1 {
       font-size: 32px;
       line-height: 1.16667;
@@ -160,15 +162,12 @@ const FirstSec = styled.div`
       letter-spacing: 0.009em;
       font-family: 'SF Pro Display', 'SF Pro Icons', 'Helvetica Neue',
         'Helvetica', 'Arial', sans-serif;
-      color: #1d1d1f;
     }
     h2 {
       font-size: 110px;
       font-weight: 700;
       font-family: 'SF Pro Display', 'SF Pro Icons', 'Helvetica Neue',
         'Helvetica', 'Arial', sans-serif;
-      color: #1d1d1f;
-      text-align: center;
       margin-top: 8px;
       line-height: 0.9;
       letter-spacing: -0.009em;
@@ -181,7 +180,7 @@ const FirstSec = styled.div`
       height: 100%;
       z-index: -1;
       img {
-        padding-top: 40px;
+        padding-top: 50px;
         margin: 0 auto;
         width: 65%;
       }
@@ -222,7 +221,7 @@ const SecondSection = styled.section`
   height: 100vh;
   width: 100vw;
   background: #000;
-  .trigger2 {
+  .second-trigger {
     background: #000;
   }
   .iphone-image-wrapper {
@@ -360,7 +359,37 @@ const FourthSection = styled.section`
 `
 
 const Apple = () => {
+  const heroSubtitle = useRef(null);
+  const heroTitle = useRef(null);
+  const heroImage = useRef(null);
+  const heroTitleWrapper = useRef(null);
+
   useEffect(() => {
+
+    var controller = new ScrollMagic.Controller()
+
+    const tlHeroAnimation = new TimelineMax()
+      .from(heroSubtitle.current, 1, { opacity: 0, y: "100%", ease: Sine.easeOut })
+      .from(heroTitle.current, 1, { opacity: 0, y: "40px", ease: Sine.easeOut }, '-=0.8')
+      .from(heroImage.current, 1, { opacity: 0, y: "40px", ease: Sine.easeOut }, '-=0.8')
+
+    const tlHeroFadeOut = new TimelineMax()
+      .to(heroTitleWrapper.current, 0.3, { opacity: 0, y: "-140%", ease: Sine.easeOut })
+
+    const tlHeroScene = new ScrollMagic.Scene({
+      triggerElement: '.first-trigger',
+      triggerHook: 0,
+      duration: '100%',
+    })
+      .setTween(tlHeroFadeOut)
+      // .addIndicators()
+      .addTo(controller)
+
+
+
+
+
+
     const tlFirstScroll = new TimelineMax()
     tlFirstScroll
       .set('.iphone-image-wrapper', {
@@ -369,8 +398,6 @@ const Apple = () => {
       })
       .to('.iphone-image-wrapper', 3, { scale: 2.2, y: '-50%' })
       .to('.iphone-image-wrapper', 3, { scale: 1, y: '0%' })
-
-    var controller = new ScrollMagic.Controller()
 
     const scene1 = new ScrollMagic.Scene({
       triggerElement: '.trigger1',
@@ -402,12 +429,12 @@ const Apple = () => {
       .to('.iphone2-text', 0.3, { autoAlpha: 0 }, '-=3')
 
     const scene2 = new ScrollMagic.Scene({
-      triggerElement: '.trigger2',
+      triggerElement: '.second-trigger',
       triggerHook: 0,
       duration: '100%',
     })
       .setTween(tlSecondScroll)
-      .setPin('.trigger2')
+      .setPin('.second-trigger')
       // .addIndicators()
       .addTo(controller)
 
@@ -543,22 +570,22 @@ const Apple = () => {
       roundProps: 'curImg', // only integers so it can be used as an array index
       immediateRender: true, // load first image automatically
       ease: Linear.easeNone, // show every image the same ammount of time
-      onUpdate: function() {
+      onUpdate: function () {
         UpdateImage.setAttribute('src', images[obj.curImg])
       },
     })
     var scene3 = new ScrollMagic.Scene({
-      triggerElement: '.trigger3',
+      triggerElement: '.first-trigger',
       triggerHook: 0,
       duration: '100%',
     })
       .setTween(SequenceTween)
-      .setPin('.trigger3')
+      .setPin('.first-trigger')
       // .addIndicators()
       .addTo(controller)
 
     var scene4 = new ScrollMagic.Scene({
-      triggerElement: '.trigger3',
+      triggerElement: '.first-trigger',
       triggerHook: 0,
       duration: '100%',
     })
@@ -585,19 +612,21 @@ const Apple = () => {
 
   return (
     <>
-      <FirstSec>
-        <div className="trigger3">
+      <HeroSec>
+        <div className="first-trigger">
           <div className="macbook-image-wrapper">
-            <h1>MacBook Pro</h1>
-            <h2>
-              Le nouveau <br /> prodige.
+            <div ref={heroTitleWrapper}>
+              <h1 ref={heroSubtitle}>MacBook Pro</h1>
+              <h2 ref={heroTitle}>
+                Le nouveau <br /> prodige.
             </h2>
+            </div>
             <div className="macbook-image">
-              <img id="myimg" src={Large0000} alt="" />
+              <img ref={heroImage} id="myimg" src={Large0000} alt="" />
             </div>
           </div>
         </div>
-      </FirstSec>
+      </HeroSec>
       <SecondSec className="trigger1">
         <div className="grid-12">
           <h2 className="position-h2">
@@ -608,7 +637,7 @@ const Apple = () => {
         </div>
       </SecondSec>
       <SecondSection>
-        <div className="trigger2">
+        <div className="second-trigger">
           <div className="iphone-image-wrapper">
             <div className="iphone1-text">
               <p>iPhone Xs Max</p>

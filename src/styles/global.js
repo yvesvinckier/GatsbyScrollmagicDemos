@@ -48,7 +48,7 @@ const GlobalStyle = createGlobalStyle`
 
   /* Site Specific Globals */
   body {
-    background: #121212;
+    background: #fff;
     color: white;
     line-height: 1;
     font-variant-ligatures: none;
