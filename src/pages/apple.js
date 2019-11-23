@@ -139,26 +139,27 @@ import Large0120 from '../assets/sequence/large_0120.jpg'
 import Large0121 from '../assets/sequence/large_0121.jpg'
 import Large0122 from '../assets/sequence/large_0122.jpg'
 
-const FirstSec = styled.section`
-  position: relative;
+const FirstSec = styled.div`
   height: 100vh;
-  width: 100vw;
   background: #fff;
+  width: 100vw;
   .macbook-image-wrapper {
-    height: 100%;
+    position: relative;
+    height: 100vh;
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-bottom: 79px;
-    margin-top: 141px;
+    padding-bottom: 79px;
+    padding-top: 141px;
     h1 {
       font-size: 32px;
       line-height: 1.16667;
       font-weight: 700;
-      letter-spacing: .009em;
-      font-family: "SF Pro Display","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif;
+      letter-spacing: 0.009em;
+      font-family: 'SF Pro Display', 'SF Pro Icons', 'Helvetica Neue',
+        'Helvetica', 'Arial', sans-serif;
       color: #1d1d1f;
     }
     h2 {
@@ -170,16 +171,19 @@ const FirstSec = styled.section`
       text-align: center;
       margin-top: 8px;
       line-height: 0.9;
-      letter-spacing: -.009em;
-      height: 400px
+      letter-spacing: -0.009em;
+      height: 400px;
     }
     .macbook-image {
+      background: #fff;
       position: absolute;
-      text-align: center;
-      bottom: 0;
+      width: 100%;
+      height: 100%;
       z-index: -1;
       img {
-        width: 75%;
+        padding-top: 40px;
+        margin: 0 auto;
+        width: 65%;
       }
     }
   }
@@ -319,7 +323,7 @@ const FourthSection = styled.section`
       max-width: 350px;
       margin: 0 10%;
       h1 {
-        color: black;
+        color: #1d1d1f;
       }
     }
   }
@@ -539,7 +543,7 @@ const Apple = () => {
       roundProps: 'curImg', // only integers so it can be used as an array index
       immediateRender: true, // load first image automatically
       ease: Linear.easeNone, // show every image the same ammount of time
-      onUpdate: function () {
+      onUpdate: function() {
         UpdateImage.setAttribute('src', images[obj.curImg])
       },
     })
@@ -559,7 +563,7 @@ const Apple = () => {
       duration: '100%',
     })
       .setPin('.trigger1')
-      .addIndicators()
+      // .addIndicators()
       .addTo(controller)
 
     var PinScene4 = new ScrollMagic.Scene({
@@ -585,7 +589,9 @@ const Apple = () => {
         <div className="trigger3">
           <div className="macbook-image-wrapper">
             <h1>MacBook Pro</h1>
-            <h2>Le nouveau <br /> prodige.</h2>
+            <h2>
+              Le nouveau <br /> prodige.
+            </h2>
             <div className="macbook-image">
               <img id="myimg" src={Large0000} alt="" />
             </div>
