@@ -612,6 +612,9 @@ const Apple = () => {
 
   return (
     <>
+      <Helmet>
+        <meta name="robots" content="noindex, nofollow" />
+      </Helmet>
       <HeroSec>
         <div className="first-trigger">
           <div className="macbook-image-wrapper">
