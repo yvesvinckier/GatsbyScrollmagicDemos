@@ -1,6 +1,7 @@
 /* eslint-disable */
 import React, { useEffect, useRef } from 'react'
 import styled from 'styled-components'
+import Helmet from 'react-helmet'
 import { TimelineMax, Linear, TweenMax, Sine } from 'gsap'
 import ScrollMagic from 'ScrollMagic'
 
@@ -316,13 +317,24 @@ const FourthSection = styled.section`
     }
     .wrapper {
       position: absolute;
-      top: 45%;
-      left: 50%;
+      top: 24%;
+      left: 5%;
       width: 90%;
-      max-width: 350px;
+      max-width: 820px;
       margin: 0 10%;
-      h1 {
-        color: #1d1d1f;
+      h2 {
+        font-size: 80px;
+        line-height: 1.05;
+        font-weight: 700;
+        letter-spacing: -.015em;
+        color: ${props => props.theme.colors.secondary};
+      }
+      h3 {
+        font-size: 80px;
+        line-height: 1.05;
+        font-weight: 700;
+        letter-spacing: -.015em;
+        color: ${props => props.theme.colors.base}
       }
     }
   }
@@ -340,15 +352,13 @@ const FourthSection = styled.section`
     background-image: url(${MacBookMan});
   }
 
+  #slide00,
   #slide01,
-  #slide05 {
+  #slide05,
+  #slide02 {
     background-color: #fff;
   }
 
-  #slide00,
-  #slide02 {
-    background-color: #ededed;
-  }
   #slide02 .pin-wrapper {
     transform: translateY(-100%);
   }
@@ -366,7 +376,7 @@ const Apple = () => {
 
   useEffect(() => {
 
-    var controller = new ScrollMagic.Controller()
+    const controller = new ScrollMagic.Controller()
 
     const tlHeroAnimation = new TimelineMax()
       .from(heroSubtitle.current, 1, { opacity: 0, y: "100%", ease: Sine.easeOut })
@@ -376,65 +386,12 @@ const Apple = () => {
     const tlHeroFadeOut = new TimelineMax()
       .to(heroTitleWrapper.current, 0.3, { opacity: 0, y: "-140%", ease: Sine.easeOut })
 
-    const tlHeroScene = new ScrollMagic.Scene({
+    const heroScene = new ScrollMagic.Scene({
       triggerElement: '.first-trigger',
       triggerHook: 0,
       duration: '100%',
     })
       .setTween(tlHeroFadeOut)
-      // .addIndicators()
-      .addTo(controller)
-
-
-
-
-
-
-    const tlFirstScroll = new TimelineMax()
-    tlFirstScroll
-      .set('.iphone-image-wrapper', {
-        scale: 4,
-        transformOrigin: 'center top',
-      })
-      .to('.iphone-image-wrapper', 3, { scale: 2.2, y: '-50%' })
-      .to('.iphone-image-wrapper', 3, { scale: 1, y: '0%' })
-
-    const scene1 = new ScrollMagic.Scene({
-      triggerElement: '.trigger1',
-      triggerHook: 0,
-      duration: '100%',
-    })
-      .setTween(tlFirstScroll)
-      // .addIndicators()
-      .addTo(controller)
-
-    const tlSecondScroll = new TimelineMax()
-    tlSecondScroll
-      .to('.iphone1', 3, { x: '-54%' })
-      .to('.iphone2', 3, { x: '54%' }, '-=3')
-      .from('.iphone1-text', 0.3, { autoAlpha: 0 }, '-=3')
-      .from('.iphone2-text', 0.3, { autoAlpha: 0 }, '-=3')
-      .to('.iphone1-text', 3, { x: '-30%' }, '-=3')
-      .to('.iphone2-text', 3, { x: '30%' }, '-=3')
-
-      .set('.iphone-stick', { display: 'block' })
-
-      .to('.iphone1-img-behind', 3, { x: '-50%' })
-      .to('.iphone2-img-behind', 3, { x: '50%' }, '-=3')
-
-      .to('.iphone1-img', 0.5, { autoAlpha: 0 }, '-=3')
-      .to('.iphone2-img', 0.5, { autoAlpha: 0 }, '-=3')
-
-      .to('.iphone1-text', 0.3, { autoAlpha: 0 }, '-=3')
-      .to('.iphone2-text', 0.3, { autoAlpha: 0 }, '-=3')
-
-    const scene2 = new ScrollMagic.Scene({
-      triggerElement: '.second-trigger',
-      triggerHook: 0,
-      duration: '100%',
-    })
-      .setTween(tlSecondScroll)
-      .setPin('.second-trigger')
       // .addIndicators()
       .addTo(controller)
 
@@ -565,7 +522,7 @@ const Apple = () => {
     var obj = { curImg: 0 }
     var UpdateImage = document.getElementById('myimg')
 
-    var SequenceTween = TweenMax.to(obj, 0.5, {
+    var tlSequenceAnimation = TweenMax.to(obj, 0.5, {
       curImg: images.length - 1, // animate propery curImg to number of images
       roundProps: 'curImg', // only integers so it can be used as an array index
       immediateRender: true, // load first image automatically
@@ -574,22 +531,76 @@ const Apple = () => {
         UpdateImage.setAttribute('src', images[obj.curImg])
       },
     })
-    var scene3 = new ScrollMagic.Scene({
+    const tlSequenceHeroScene = new ScrollMagic.Scene({
       triggerElement: '.first-trigger',
       triggerHook: 0,
       duration: '100%',
     })
-      .setTween(SequenceTween)
+      .setTween(tlSequenceAnimation)
       .setPin('.first-trigger')
       // .addIndicators()
       .addTo(controller)
 
-    var scene4 = new ScrollMagic.Scene({
+
+    const secondSectionPinScene = new ScrollMagic.Scene({
       triggerElement: '.first-trigger',
       triggerHook: 0,
       duration: '100%',
     })
       .setPin('.trigger1')
+      // .addIndicators()
+      .addTo(controller)
+
+
+
+
+
+
+    const tlFirstScroll = new TimelineMax()
+    tlFirstScroll
+      .set('.iphone-image-wrapper', {
+        scale: 4,
+        transformOrigin: 'center top',
+      })
+      .to('.iphone-image-wrapper', 3, { scale: 2.2, y: '-50%' })
+      .to('.iphone-image-wrapper', 3, { scale: 1, y: '0%' })
+
+    const scene1 = new ScrollMagic.Scene({
+      triggerElement: '.trigger1',
+      triggerHook: 0,
+      duration: '100%',
+    })
+      .setTween(tlFirstScroll)
+      // .addIndicators()
+      .addTo(controller)
+
+    const tlSecondScroll = new TimelineMax()
+    tlSecondScroll
+      .to('.iphone1', 3, { x: '-54%' })
+      .to('.iphone2', 3, { x: '54%' }, '-=3')
+      .from('.iphone1-text', 0.3, { autoAlpha: 0 }, '-=3')
+      .from('.iphone2-text', 0.3, { autoAlpha: 0 }, '-=3')
+      .to('.iphone1-text', 3, { x: '-30%' }, '-=3')
+      .to('.iphone2-text', 3, { x: '30%' }, '-=3')
+
+      .set('.iphone-stick', { display: 'block' })
+
+      .to('.iphone1-img-behind', 3, { x: '-50%' })
+      .to('.iphone2-img-behind', 3, { x: '50%' }, '-=3')
+
+      .to('.iphone1-img', 0.5, { autoAlpha: 0 }, '-=3')
+      .to('.iphone2-img', 0.5, { autoAlpha: 0 }, '-=3')
+
+      .to('.iphone1-text', 0.3, { autoAlpha: 0 }, '-=3')
+      .to('.iphone2-text', 0.3, { autoAlpha: 0 }, '-=3')
+
+    const scene2 = new ScrollMagic.Scene({
+      triggerElement: '.second-trigger',
+      triggerHook: 0,
+      duration: '100%',
+    })
+      .setTween(tlSecondScroll)
+      .setPin('.second-trigger')
       // .addIndicators()
       .addTo(controller)
 
@@ -670,11 +681,10 @@ const Apple = () => {
       <FourthSection>
         <article id="slide00" className="slide">
           <div className="wrapper">
-            <h1>INTRODUCTION</h1>
-            <p>
-              Vivamus hendrerit arcu sed erat molestie vehicula. Sed auctor
-              neque eu tellus rhoncus ut eleifend nibh porttitor.
-            </p>
+            <h2>Écran Retina</h2>
+            <h3>
+              Un sublime espace de travail. Un immense terrain de jeu.
+            </h3>
           </div>
         </article>
 
