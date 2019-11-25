@@ -1,11 +1,13 @@
-/* eslint-disable */
 import React, { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import Helmet from 'react-helmet'
 import { TimelineMax, Linear, TweenMax, Sine } from 'gsap'
+// eslint-disable-next-line import/no-unresolved
 import ScrollMagic from 'ScrollMagic'
 
+// eslint-disable-next-line import/no-unresolved
 import 'animation.gsap'
+// eslint-disable-next-line import/no-unresolved
 import 'debug.addIndicators'
 
 import IphoneOne from '../assets/images/iphone-1.png'
@@ -19,7 +21,7 @@ import MacBookMan from '../assets/images/display_fallback__upfw42u3jdum_large.jp
 import { images } from '../components/sequence'
 import Large0000 from '../assets/sequence/large_0000.jpg'
 
-const HeroSec = styled.div`
+const HeroSection = styled.div`
   height: 100vh;
   background: #fff;
   width: 100vw;
@@ -40,14 +42,10 @@ const HeroSec = styled.div`
       line-height: 1.16667;
       font-weight: 700;
       letter-spacing: 0.009em;
-      font-family: 'SF Pro Display', 'SF Pro Icons', 'Helvetica Neue',
-        'Helvetica', 'Arial', sans-serif;
     }
     h2 {
       font-size: 110px;
       font-weight: 700;
-      font-family: 'SF Pro Display', 'SF Pro Icons', 'Helvetica Neue',
-        'Helvetica', 'Arial', sans-serif;
       margin-top: 8px;
       line-height: 0.9;
       letter-spacing: -0.009em;
@@ -68,7 +66,7 @@ const HeroSec = styled.div`
   }
 `
 
-const SecondSec = styled.section`
+const IphoneTextSection = styled.section`
   position: relative;
   height: 100vh;
   width: 100vw;
@@ -85,8 +83,6 @@ const SecondSec = styled.section`
     font-size: 28px;
     line-height: 1.14286;
     font-weight: 500;
-    font-family: 'SF Pro Display', 'SF Pro Icons', 'Helvetica Neue', 'Helvetica',
-      'Arial', sans-serif;
     color: #ffe5db;
     letter-spacing: 0.007em;
   }
@@ -96,7 +92,7 @@ const SecondSec = styled.section`
     align-self: center;
   }
 `
-const SecondSection = styled.section`
+const IphoneSection = styled.section`
   position: relative;
   height: 100vh;
   width: 100vw;
@@ -143,10 +139,6 @@ const SecondSection = styled.section`
 
     .iphone2-text {
       grid-column: 3;
-      p {
-        font-family: 'SF Pro Display', 'SF Pro Icons', 'Helvetica Neue',
-          'Helvetica', 'Arial', sans-serif;
-      }
     }
 
     .iphone1-img {
@@ -205,15 +197,15 @@ const FourthSection = styled.section`
         font-size: 80px;
         line-height: 1.05;
         font-weight: 700;
-        letter-spacing: -.015em;
+        letter-spacing: -0.015em;
         color: ${props => props.theme.colors.secondary};
       }
       h3 {
         font-size: 80px;
         line-height: 1.05;
         font-weight: 700;
-        letter-spacing: -.015em;
-        color: ${props => props.theme.colors.base}
+        letter-spacing: -0.015em;
+        color: ${props => props.theme.colors.base};
       }
     }
   }
@@ -248,25 +240,47 @@ const FourthSection = styled.section`
 `
 
 const Apple = () => {
-  const heroSubtitle = useRef(null);
-  const heroTitle = useRef(null);
-  const heroImage = useRef(null);
-  const heroTitleWrapper = useRef(null);
+  const heroSubtitle = useRef(null)
+  const heroTitle = useRef(null)
+  const heroImage = useRef(null)
+  const heroTitleWrapper = useRef(null)
+  const heroTrigger = useRef(null)
+  const iphoneTextTrigger = useRef(null)
+  const iphoneImageWrapper = useRef(null)
+  const iphoneTrigger = useRef(null)
 
   useEffect(() => {
-
     const controller = new ScrollMagic.Controller()
 
     const tlHeroAnimation = new TimelineMax()
-      .from(heroSubtitle.current, 1, { opacity: 0, y: "100%", ease: Sine.easeOut })
-      .from(heroTitle.current, 1, { opacity: 0, y: "40px", ease: Sine.easeOut }, '-=0.8')
-      .from(heroImage.current, 1, { opacity: 0, y: "40px", ease: Sine.easeOut }, '-=0.8')
+    tlHeroAnimation
+      .from(heroSubtitle.current, 1, {
+        opacity: 0,
+        y: '100%',
+        ease: Sine.easeOut,
+      })
+      .from(
+        heroTitle.current,
+        1,
+        { opacity: 0, y: '40px', ease: Sine.easeOut },
+        '-=0.8'
+      )
+      .from(
+        heroImage.current,
+        1,
+        { opacity: 0, y: '40px', ease: Sine.easeOut },
+        '-=0.8'
+      )
 
-    const tlHeroFadeOut = new TimelineMax()
-      .to(heroTitleWrapper.current, 0.3, { opacity: 0, y: "-140%", ease: Sine.easeOut })
+    const tlHeroFadeOut = new TimelineMax().to(heroTitleWrapper.current, 0.3, {
+      opacity: 0,
+      y: '-140%',
+      ease: Sine.easeOut,
+    })
 
+    // eslint-disable-next-line no-unused-vars
     const heroScene = new ScrollMagic.Scene({
-      triggerElement: '.first-trigger',
+      triggerElement: heroTrigger.current,
       triggerHook: 0,
       duration: '100%',
     })
@@ -274,63 +288,60 @@ const Apple = () => {
       // .addIndicators()
       .addTo(controller)
 
-    var obj = { curImg: 0 }
-    var UpdateImage = document.getElementById('myimg')
+    const obj = { curImg: 0 }
+    const UpdateImage = heroImage.current
 
-    var tlSequenceAnimation = TweenMax.to(obj, 0.5, {
+    const tlSequenceAnimation = TweenMax.to(obj, 0.5, {
       curImg: images.length - 1, // animate propery curImg to number of images
       roundProps: 'curImg', // only integers so it can be used as an array index
       immediateRender: true, // load first image automatically
       ease: Linear.easeNone, // show every image the same ammount of time
-      onUpdate: function () {
+      onUpdate: function() {
         UpdateImage.setAttribute('src', images[obj.curImg])
       },
     })
+    // eslint-disable-next-line no-unused-vars
     const tlSequenceHeroScene = new ScrollMagic.Scene({
-      triggerElement: '.first-trigger',
+      triggerElement: heroTrigger.current,
       triggerHook: 0,
       duration: '100%',
     })
       .setTween(tlSequenceAnimation)
-      .setPin('.first-trigger')
+      .setPin(heroTrigger.current)
       // .addIndicators()
       .addTo(controller)
 
-
-    const secondSectionPinScene = new ScrollMagic.Scene({
-      triggerElement: '.first-trigger',
+    // eslint-disable-next-line no-unused-vars
+    const iphoneTextPinScene = new ScrollMagic.Scene({
+      triggerElement: heroTrigger.current,
       triggerHook: 0,
       duration: '100%',
     })
-      .setPin('.trigger1')
+      .setPin(iphoneTextTrigger.current)
       // .addIndicators()
       .addTo(controller)
 
-
-
-
-
-
-    const tlFirstScroll = new TimelineMax()
-    tlFirstScroll
-      .set('.iphone-image-wrapper', {
+    const tlIphoneScaleDownAnimation = new TimelineMax()
+    tlIphoneScaleDownAnimation
+      .set(iphoneImageWrapper.current, {
         scale: 4,
         transformOrigin: 'center top',
       })
-      .to('.iphone-image-wrapper', 3, { scale: 2.2, y: '-50%' })
-      .to('.iphone-image-wrapper', 3, { scale: 1, y: '0%' })
+      .to(iphoneImageWrapper.current, 3, { scale: 2.2, y: '-50%' })
+      .to(iphoneImageWrapper.current, 3, { scale: 1, y: '0%' })
 
-    const scene1 = new ScrollMagic.Scene({
-      triggerElement: '.trigger1',
+    // eslint-disable-next-line no-unused-vars
+    const iphoneScaleDownScene = new ScrollMagic.Scene({
+      triggerElement: iphoneTextTrigger.current,
       triggerHook: 0,
-      duration: '100%',
+      duration: '200%',
     })
-      .setTween(tlFirstScroll)
+      .setTween(tlIphoneScaleDownAnimation)
       // .addIndicators()
       .addTo(controller)
 
-    const tlSecondScroll = new TimelineMax()
-    tlSecondScroll
+    const tlIphoneSplitAnimation = new TimelineMax()
+    tlIphoneSplitAnimation
       .to('.iphone1', 3, { x: '-54%' })
       .to('.iphone2', 3, { x: '54%' }, '-=3')
       .from('.iphone1-text', 0.3, { autoAlpha: 0 }, '-=3')
@@ -349,17 +360,19 @@ const Apple = () => {
       .to('.iphone1-text', 0.3, { autoAlpha: 0 }, '-=3')
       .to('.iphone2-text', 0.3, { autoAlpha: 0 }, '-=3')
 
-    const scene2 = new ScrollMagic.Scene({
-      triggerElement: '.second-trigger',
+    // eslint-disable-next-line no-unused-vars
+    const iphoneSplitScene = new ScrollMagic.Scene({
+      triggerElement: iphoneTrigger.current,
       triggerHook: 0,
       duration: '100%',
     })
-      .setTween(tlSecondScroll)
-      .setPin('.second-trigger')
+      .setTween(tlIphoneSplitAnimation)
+      .setPin(iphoneTrigger.current)
       // .addIndicators()
       .addTo(controller)
 
-    var PinScene4 = new ScrollMagic.Scene({
+    // eslint-disable-next-line no-unused-vars
+    const PinScene4 = new ScrollMagic.Scene({
       triggerElement: '#slide01',
       triggerHook: 0,
       duration: '100%',
@@ -367,7 +380,8 @@ const Apple = () => {
       .setPin('#slide01 .pin-wrapper')
       .addTo(controller)
 
-    var PinScene5 = new ScrollMagic.Scene({
+    // eslint-disable-next-line no-unused-vars
+    const PinScene5 = new ScrollMagic.Scene({
       triggerElement: '#slide01',
       triggerHook: 0,
       duration: '100%',
@@ -381,22 +395,22 @@ const Apple = () => {
       <Helmet>
         <meta name="robots" content="noindex, nofollow" />
       </Helmet>
-      <HeroSec>
-        <div className="first-trigger">
+      <HeroSection>
+        <div ref={heroTrigger}>
           <div className="macbook-image-wrapper">
             <div ref={heroTitleWrapper}>
               <h1 ref={heroSubtitle}>MacBook Pro</h1>
               <h2 ref={heroTitle}>
                 Le nouveau <br /> prodige.
-            </h2>
+              </h2>
             </div>
             <div className="macbook-image">
-              <img ref={heroImage} id="myimg" src={Large0000} alt="" />
+              <img ref={heroImage} src={Large0000} alt="" />
             </div>
           </div>
         </div>
-      </HeroSec>
-      <SecondSec className="trigger1">
+      </HeroSection>
+      <IphoneTextSection ref={iphoneTextTrigger}>
         <div className="grid-12">
           <h2 className="position-h2">
             The custom OLED displays on iPhone&nbsp;X deliver the most accurate
@@ -404,10 +418,10 @@ const Apple = () => {
             has our largest display ever on an&nbsp;iPhone.
           </h2>
         </div>
-      </SecondSec>
-      <SecondSection>
+      </IphoneTextSection>
+      <IphoneSection ref={iphoneTrigger}>
         <div className="second-trigger">
-          <div className="iphone-image-wrapper">
+          <div ref={iphoneImageWrapper} className="iphone-image-wrapper">
             <div className="iphone1-text">
               <p>iPhone Xs Max</p>
               <p>6.5" dsiplay</p>
@@ -431,15 +445,13 @@ const Apple = () => {
             </div>
           </div>
         </div>
-      </SecondSection>
+      </IphoneSection>
 
       <FourthSection>
         <article id="slide00" className="slide">
           <div className="wrapper">
             <h2>Écran Retina</h2>
-            <h3>
-              Un sublime espace de travail. Un immense terrain de jeu.
-            </h3>
+            <h3>Un sublime espace de travail. Un immense terrain de jeu.</h3>
           </div>
         </article>
 
