@@ -21,6 +21,10 @@ import MacBookMan from '../assets/images/display_fallback__upfw42u3jdum_large.jp
 import { images } from '../components/sequence'
 import Large0000 from '../assets/sequence/large_0000.jpg'
 
+const OverFlow = styled.div`
+  overflow-x: hidden;
+`
+
 const HeroSection = styled.div`
   height: 100vh;
   background: #fff;
@@ -97,9 +101,6 @@ const IphoneSection = styled.section`
   height: 100vh;
   width: 100vw;
   background: #000;
-  .second-trigger {
-    background: #000;
-  }
   .iphone-image-wrapper {
     height: 100vh;
     width: 100%;
@@ -116,18 +117,15 @@ const IphoneSection = styled.section`
       text-align: center;
       max-width: 100%;
     }
-
     .inner-phone {
       position: relative;
     }
-
     p {
       color: #fff;
       font-weight: 600;
       font-size: 20px;
       margin: 0 0 8px 0;
     }
-
     .iphone1-text {
       grid-column: 1;
       text-align: right;
@@ -136,40 +134,32 @@ const IphoneSection = styled.section`
           'Helvetica', 'Arial', sans-serif;
       }
     }
-
     .iphone2-text {
       grid-column: 3;
     }
-
     .iphone1-img {
       position: absolute;
       z-index: 2;
     }
-
     .iphone-stick {
       display: none;
       position: absolute;
       left: 54.5%;
     }
-
     .iphone2-img {
       position: absolute;
       z-index: 2;
     }
-
     .iphone1 img {
       width: 100%;
     }
-
     .iphone2 img {
       width: 88%;
     }
-
     .iphone1-img-behind {
       z-index: 1;
       position: relative;
     }
-
     .iphone2-img-behind {
       z-index: 1;
       position: relative;
@@ -177,7 +167,7 @@ const IphoneSection = styled.section`
   }
 `
 
-const FourthSection = styled.section`
+const CrossRevealSections = styled.section`
   .slide {
     position: relative;
     overflow: hidden;
@@ -188,11 +178,11 @@ const FourthSection = styled.section`
     }
     .wrapper {
       position: absolute;
-      top: 24%;
+      top: 50%;
       left: 5%;
       width: 90%;
       max-width: 820px;
-      margin: 0 10%;
+      margin: 0 5%;
       h2 {
         font-size: 80px;
         line-height: 1.05;
@@ -207,6 +197,19 @@ const FourthSection = styled.section`
         letter-spacing: -0.015em;
         color: ${props => props.theme.colors.base};
       }
+      .pro-name {
+        font-weight: 700;
+        color: ${props => props.theme.colors.base};
+        line-height: 1.3;
+        font-size: 17px;
+      }
+      .pro-job {
+        color: ${props => props.theme.colors.base};
+        line-height: 1.3;
+        font-weight: 400;
+        letter-spacing: -0.022em;
+        font-size: 17px;
+      }
     }
   }
   .img {
@@ -219,17 +222,41 @@ const FourthSection = styled.section`
     transform: translate(-50%, -50%);
     background-size: cover;
   }
+  #slide02 .wrapper {
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    margin: 0 0;
+  }
   #slide02 .img {
     background-image: url(${MacBookMan});
   }
-
   #slide00,
   #slide01,
-  #slide05,
-  #slide02 {
+  #slide02,
+  #slide03 {
     background-color: #fff;
   }
-
+  #slide00 .wrapper {
+    top: 25%;
+  }
+  #slide02 .wrapper .quote {
+    line-height: 1.03;
+    font-weight: 700;
+    font-size: 80px;
+    letter-spacing: -0.015em;
+    color: #fff;
+  }
+  #slide02 .wrapper .white-name {
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 1.14286;
+    letter-spacing: 0;
+    color: #fff;
+    padding-top: 20px;
+  }
   #slide02 .pin-wrapper {
     transform: translateY(-100%);
   }
@@ -248,6 +275,18 @@ const Apple = () => {
   const iphoneTextTrigger = useRef(null)
   const iphoneImageWrapper = useRef(null)
   const iphoneTrigger = useRef(null)
+  const iphoneOne = useRef(null)
+  const iphoneTwo = useRef(null)
+  const iphoneOneText = useRef(null)
+  const iphoneTwoText = useRef(null)
+  const iphoneStick = useRef(null)
+  const iphoneOneImage = useRef(null)
+  const iphoneTwoImage = useRef(null)
+  const iphoneOneImageBehind = useRef(null)
+  const iphoneTwoImageBehind = useRef(null)
+  const slideTrigger = useRef(null)
+  const slideTwoPinWrapper = useRef(null)
+  const slideOnePinWrapper = useRef(null)
 
   useEffect(() => {
     const controller = new ScrollMagic.Controller()
@@ -342,23 +381,23 @@ const Apple = () => {
 
     const tlIphoneSplitAnimation = new TimelineMax()
     tlIphoneSplitAnimation
-      .to('.iphone1', 3, { x: '-54%' })
-      .to('.iphone2', 3, { x: '54%' }, '-=3')
-      .from('.iphone1-text', 0.3, { autoAlpha: 0 }, '-=3')
-      .from('.iphone2-text', 0.3, { autoAlpha: 0 }, '-=3')
-      .to('.iphone1-text', 3, { x: '-30%' }, '-=3')
-      .to('.iphone2-text', 3, { x: '30%' }, '-=3')
+      .to(iphoneOne.current, 3, { x: '-54%' })
+      .to(iphoneTwo.current, 3, { x: '54%' }, '-=3')
+      .from(iphoneOneText.current, 0.3, { autoAlpha: 0 }, '-=3')
+      .from(iphoneTwoText.current, 0.3, { autoAlpha: 0 }, '-=3')
+      .to(iphoneOneText.current, 3, { x: '-30%' }, '-=3')
+      .to(iphoneTwoText.current, 3, { x: '30%' }, '-=3')
 
-      .set('.iphone-stick', { display: 'block' })
+      .set(iphoneStick.current, { display: 'block' })
 
-      .to('.iphone1-img-behind', 3, { x: '-50%' })
-      .to('.iphone2-img-behind', 3, { x: '50%' }, '-=3')
+      .to(iphoneOneImageBehind.current, 3, { x: '-50%' })
+      .to(iphoneTwoImageBehind.current, 3, { x: '50%' }, '-=3')
 
-      .to('.iphone1-img', 0.5, { autoAlpha: 0 }, '-=3')
-      .to('.iphone2-img', 0.5, { autoAlpha: 0 }, '-=3')
+      .to(iphoneOneImage.current, 0.5, { autoAlpha: 0 }, '-=3')
+      .to(iphoneTwoImage.current, 0.5, { autoAlpha: 0 }, '-=3')
 
-      .to('.iphone1-text', 0.3, { autoAlpha: 0 }, '-=3')
-      .to('.iphone2-text', 0.3, { autoAlpha: 0 }, '-=3')
+      .to(iphoneOneText.current, 0.3, { autoAlpha: 0 }, '-=3')
+      .to(iphoneTwoText.current, 0.3, { autoAlpha: 0 }, '-=3')
 
     // eslint-disable-next-line no-unused-vars
     const iphoneSplitScene = new ScrollMagic.Scene({
@@ -372,21 +411,21 @@ const Apple = () => {
       .addTo(controller)
 
     // eslint-disable-next-line no-unused-vars
-    const PinScene4 = new ScrollMagic.Scene({
-      triggerElement: '#slide01',
+    const crossRevealSectionOneScene = new ScrollMagic.Scene({
+      triggerElement: slideTrigger.current,
       triggerHook: 0,
       duration: '100%',
     })
-      .setPin('#slide01 .pin-wrapper')
+      .setPin(slideOnePinWrapper.current)
       .addTo(controller)
 
     // eslint-disable-next-line no-unused-vars
-    const PinScene5 = new ScrollMagic.Scene({
-      triggerElement: '#slide01',
+    const crossRevealSectionTwoScene = new ScrollMagic.Scene({
+      triggerElement: slideTrigger.current,
       triggerHook: 0,
       duration: '100%',
     })
-      .setPin('#slide02 .pin-wrapper')
+      .setPin(slideTwoPinWrapper.current)
       .addTo(controller)
   }, [])
 
@@ -395,102 +434,120 @@ const Apple = () => {
       <Helmet>
         <meta name="robots" content="noindex, nofollow" />
       </Helmet>
-      <HeroSection>
-        <div ref={heroTrigger}>
-          <div className="macbook-image-wrapper">
-            <div ref={heroTitleWrapper}>
-              <h1 ref={heroSubtitle}>MacBook Pro</h1>
-              <h2 ref={heroTitle}>
-                Le nouveau <br /> prodige.
-              </h2>
-            </div>
-            <div className="macbook-image">
-              <img ref={heroImage} src={Large0000} alt="" />
+      <OverFlow>
+        <HeroSection>
+          <div ref={heroTrigger}>
+            <div className="macbook-image-wrapper">
+              <div ref={heroTitleWrapper}>
+                <h1 ref={heroSubtitle}>MacBook Pro</h1>
+                <h2 ref={heroTitle}>
+                  Le nouveau <br /> prodige.
+                </h2>
+              </div>
+              <div className="macbook-image">
+                <img ref={heroImage} src={Large0000} alt="" />
+              </div>
             </div>
           </div>
-        </div>
-      </HeroSection>
-      <IphoneTextSection ref={iphoneTextTrigger}>
-        <div className="grid-12">
-          <h2 className="position-h2">
-            The custom OLED displays on iPhone&nbsp;X deliver the most accurate
-            color in the industry, HDR, and true blacks. And iPhone&nbsp;XMax
-            has our largest display ever on an&nbsp;iPhone.
-          </h2>
-        </div>
-      </IphoneTextSection>
-      <IphoneSection ref={iphoneTrigger}>
-        <div className="second-trigger">
+        </HeroSection>
+        <IphoneTextSection ref={iphoneTextTrigger}>
+          <div className="grid-12">
+            <h2 className="position-h2">
+              The custom OLED displays on iPhone&nbsp;X deliver the most
+              accurate color in the industry, HDR, and true blacks. And
+              iPhone&nbsp;XMax has our largest display ever on an&nbsp;iPhone.
+            </h2>
+          </div>
+        </IphoneTextSection>
+        <IphoneSection ref={iphoneTrigger}>
           <div ref={iphoneImageWrapper} className="iphone-image-wrapper">
-            <div className="iphone1-text">
+            <div ref={iphoneOneText} className="iphone1-text">
               <p>iPhone Xs Max</p>
               <p>6.5" dsiplay</p>
             </div>
-            <div className="iphone-image iphone1">
+            <div ref={iphoneOne} className="iphone-image iphone1">
               <div className="inner-phone">
-                <img className="iphone1-img" src={IphoneOne} alt="" />
-                <img className="iphone-stick" src={IphoneThree} alt="" />
-                <img className="iphone1-img-behind" src={IphoneLeft} alt="" />
+                <img
+                  ref={iphoneOneImage}
+                  className="iphone1-img"
+                  src={IphoneOne}
+                  alt=""
+                />
+                <img
+                  ref={iphoneStick}
+                  className="iphone-stick"
+                  src={IphoneThree}
+                  alt=""
+                />
+                <img
+                  ref={iphoneOneImageBehind}
+                  className="iphone1-img-behind"
+                  src={IphoneLeft}
+                  alt=""
+                />
               </div>
             </div>
-            <div className="iphone-image iphone2">
+            <div ref={iphoneTwo} className="iphone-image iphone2">
               <div className="inner-phone">
-                <img className="iphone2-img" src={IphoneOne} alt="" />
-                <img className="iphone2-img-behind" src={IphoneRight} alt="" />
+                <img
+                  ref={iphoneTwoImage}
+                  className="iphone2-img"
+                  src={IphoneOne}
+                  alt=""
+                />
+                <img
+                  ref={iphoneTwoImageBehind}
+                  className="iphone2-img-behind"
+                  src={IphoneRight}
+                  alt=""
+                />
               </div>
             </div>
-            <div className="iphone2-text">
+            <div ref={iphoneTwoText} className="iphone2-text">
               <p>iPhone Xs Max</p>
               <p>5.8" display</p>
             </div>
           </div>
-        </div>
-      </IphoneSection>
-
-      <FourthSection>
-        <article id="slide00" className="slide">
-          <div className="wrapper">
-            <h2>Écran Retina</h2>
-            <h3>Un sublime espace de travail. Un immense terrain de jeu.</h3>
-          </div>
-        </article>
-
-        <article id="slide01" className="slide">
-          <div className="pin-wrapper">
-            <div className="img"></div>
+        </IphoneSection>
+        <CrossRevealSections>
+          <article id="slide00" className="slide">
             <div className="wrapper">
-              <h1>TITLE ONE</h1>
+              <h2>Écran Retina</h2>
+              <h3>Un sublime espace de travail. Un immense terrain de jeu.</h3>
+            </div>
+          </article>
+          <article ref={slideTrigger} id="slide01" className="slide">
+            <div ref={slideOnePinWrapper} className="pin-wrapper">
+              <div className="img"></div>
+              <div className="wrapper">
+                <h3 className="pro-name">Chris Burkard</h3>
+                <p className="pro-job">Photographe d’aventure</p>
+              </div>
+            </div>
+          </article>
+          <article id="slide02" className="slide">
+            <div ref={slideTwoPinWrapper} className="pin-wrapper">
+              <div className="img"></div>
+              <div className="wrapper">
+                <p className="quote">
+                  « Les limites sont faites pour être repoussées. »
+                </p>
+                <p className="white-name">Chris Burkard</p>
+              </div>
+            </div>
+          </article>
+          <article id="slide03" className="slide">
+            <div className="wrapper">
+              <h1>UNPINNED SLIDE</h1>
               <p>
-                Curabitur vulputate, ligula lacinia scelerisque tempor, lacus
-                lacus ornare ante, ac egestas.
+                Vivamus hendrerit arcu sed erat molestie vehicula. Sed auctor
+                neque eu tellus rhoncus ut eleifend nibh porttitor.
               </p>
             </div>
-          </div>
-        </article>
-
-        <article id="slide02" className="slide">
-          <div className="pin-wrapper">
-            <div className="img"></div>
-            <div className="wrapper">
-              <h1>TITLE TWO</h1>
-              <p>
-                Proin quis tortor orci. Etiam at risus et justo dignissim
-                congue. Donec congue lacinia dui, a porttitor lectus.
-              </p>
-            </div>
-          </div>
-        </article>
-
-        <article id="slide05" className="slide">
-          <div className="wrapper">
-            <h1>UNPINNED SLIDE</h1>
-            <p>
-              Vivamus hendrerit arcu sed erat molestie vehicula. Sed auctor
-              neque eu tellus rhoncus ut eleifend nibh porttitor.
-            </p>
-          </div>
-        </article>
-      </FourthSection>
+          </article>
+        </CrossRevealSections>
+      </OverFlow>
+      >
     </>
   )
 }
