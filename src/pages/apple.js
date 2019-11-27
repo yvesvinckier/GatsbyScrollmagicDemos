@@ -218,7 +218,7 @@ const CrossRevealSections = styled.section`
     left: 50%;
     width: 100%;
     height: 100%;
-    background: url(${Man}) no-repeat;
+    background: url(${Man}) no-repeat center center;
     transform: translate(-50%, -50%);
     background-size: cover;
   }
@@ -248,6 +248,10 @@ const CrossRevealSections = styled.section`
     font-size: 80px;
     letter-spacing: -0.015em;
     color: #fff;
+  }
+  #slide01 .img-mask {
+    overflow: hidden;
+    width: 100%;
   }
   #slide02 .wrapper .white-name {
     font-weight: 700;
@@ -287,6 +291,10 @@ const Apple = () => {
   const slideTrigger = useRef(null)
   const slideTwoPinWrapper = useRef(null)
   const slideOnePinWrapper = useRef(null)
+  const menMaskWrapper = useRef(null)
+  const slideZeroPinWrapper = useRef(null)
+  const menDescWrapper = useRef(null)
+  const scaleDownImage = useRef(null)
 
   useEffect(() => {
     const controller = new ScrollMagic.Controller()
@@ -317,8 +325,8 @@ const Apple = () => {
       ease: Sine.easeOut,
     })
 
-    // eslint-disable-next-line no-unused-vars
-    const heroScene = new ScrollMagic.Scene({
+    // heroScene
+    new ScrollMagic.Scene({
       triggerElement: heroTrigger.current,
       triggerHook: 0,
       duration: '100%',
@@ -339,8 +347,8 @@ const Apple = () => {
         UpdateImage.setAttribute('src', images[obj.curImg])
       },
     })
-    // eslint-disable-next-line no-unused-vars
-    const tlSequenceHeroScene = new ScrollMagic.Scene({
+    // tlSequenceHeroScene
+    new ScrollMagic.Scene({
       triggerElement: heroTrigger.current,
       triggerHook: 0,
       duration: '100%',
@@ -350,8 +358,8 @@ const Apple = () => {
       // .addIndicators()
       .addTo(controller)
 
-    // eslint-disable-next-line no-unused-vars
-    const iphoneTextPinScene = new ScrollMagic.Scene({
+    // iphoneTextPinScene
+    new ScrollMagic.Scene({
       triggerElement: heroTrigger.current,
       triggerHook: 0,
       duration: '100%',
@@ -369,8 +377,8 @@ const Apple = () => {
       .to(iphoneImageWrapper.current, 3, { scale: 2.2, y: '-50%' })
       .to(iphoneImageWrapper.current, 3, { scale: 1, y: '0%' })
 
-    // eslint-disable-next-line no-unused-vars
-    const iphoneScaleDownScene = new ScrollMagic.Scene({
+    // iphoneScaleDownScene
+    new ScrollMagic.Scene({
       triggerElement: iphoneTextTrigger.current,
       triggerHook: 0,
       duration: '200%',
@@ -399,8 +407,8 @@ const Apple = () => {
       .to(iphoneOneText.current, 0.3, { autoAlpha: 0 }, '-=3')
       .to(iphoneTwoText.current, 0.3, { autoAlpha: 0 }, '-=3')
 
-    // eslint-disable-next-line no-unused-vars
-    const iphoneSplitScene = new ScrollMagic.Scene({
+    // iphoneSplitScene
+    new ScrollMagic.Scene({
       triggerElement: iphoneTrigger.current,
       triggerHook: 0,
       duration: '100%',
@@ -410,8 +418,8 @@ const Apple = () => {
       // .addIndicators()
       .addTo(controller)
 
-    // eslint-disable-next-line no-unused-vars
-    const crossRevealSectionOneScene = new ScrollMagic.Scene({
+    // crossRevealSectionOneScene
+    new ScrollMagic.Scene({
       triggerElement: slideTrigger.current,
       triggerHook: 0,
       duration: '100%',
@@ -419,13 +427,49 @@ const Apple = () => {
       .setPin(slideOnePinWrapper.current)
       .addTo(controller)
 
-    // eslint-disable-next-line no-unused-vars
-    const crossRevealSectionTwoScene = new ScrollMagic.Scene({
+    // crossRevealSectionTwoScene
+    new ScrollMagic.Scene({
       triggerElement: slideTrigger.current,
       triggerHook: 0,
       duration: '100%',
     })
       .setPin(slideTwoPinWrapper.current)
+      .addTo(controller)
+
+    const tlManMaskAnimation = new TimelineMax()
+    tlManMaskAnimation
+      .from(menMaskWrapper.current, 3, {
+        width: '70%',
+        ease: Linear.easeNone,
+      })
+      .from(menDescWrapper.current, 0.3, {
+        autoAlpha: 0,
+      })
+    // ManMaskScene
+    new ScrollMagic.Scene({
+      triggerElement: slideZeroPinWrapper.current,
+      triggerHook: 0,
+      duration: '100%',
+    })
+      .setTween(tlManMaskAnimation)
+      // .addIndicators()
+      .addTo(controller)
+
+    const tlScaleDownImageAnimation = new TimelineMax()
+    tlScaleDownImageAnimation.fromTo(
+      scaleDownImage.current,
+      1,
+      { scale: 1.3 },
+      { scale: 0.6 }
+    )
+    // ScaleDownImageScene
+    new ScrollMagic.Scene({
+      triggerElement: slideTwoPinWrapper.current,
+      triggerHook: 0,
+      duration: '200%',
+    })
+      .setTween(tlScaleDownImageAnimation)
+      .addIndicators()
       .addTo(controller)
   }, [])
 
@@ -510,7 +554,7 @@ const Apple = () => {
           </div>
         </IphoneSection>
         <CrossRevealSections>
-          <article id="slide00" className="slide">
+          <article ref={slideZeroPinWrapper} id="slide00" className="slide">
             <div className="wrapper">
               <h2>Écran Retina</h2>
               <h3>Un sublime espace de travail. Un immense terrain de jeu.</h3>
@@ -518,8 +562,8 @@ const Apple = () => {
           </article>
           <article ref={slideTrigger} id="slide01" className="slide">
             <div ref={slideOnePinWrapper} className="pin-wrapper">
-              <div className="img"></div>
-              <div className="wrapper">
+              <div ref={menMaskWrapper} className="img img-mask"></div>
+              <div ref={menDescWrapper} className="wrapper">
                 <h3 className="pro-name">Chris Burkard</h3>
                 <p className="pro-job">Photographe d’aventure</p>
               </div>
@@ -527,7 +571,7 @@ const Apple = () => {
           </article>
           <article id="slide02" className="slide">
             <div ref={slideTwoPinWrapper} className="pin-wrapper">
-              <div className="img"></div>
+              <div ref={scaleDownImage} className="img"></div>
               <div className="wrapper">
                 <p className="quote">
                   « Les limites sont faites pour être repoussées. »
