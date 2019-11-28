@@ -16,7 +16,7 @@ import IphoneRight from '../assets/images/iphone-right.png'
 import IphoneLeft from '../assets/images/iphone-left.png'
 
 import Man from '../assets/images/display_pro__9ci00tik8gyi_large.jpg'
-import MacBookMan from '../assets/images/display_fallback__upfw42u3jdum_large.jpg'
+import Landscape from '../assets/images/display_hero_screen__eik3891ojtoy_large_2x.jpg'
 
 import { images } from '../components/sequence'
 import Large0000 from '../assets/sequence/large_0000.jpg'
@@ -231,7 +231,7 @@ const CrossRevealSections = styled.section`
     margin: 0 0;
   }
   #slide02 .img {
-    background-image: url(${MacBookMan});
+    background-image: url(${Landscape});
   }
   #slide00,
   #slide01,
@@ -294,7 +294,7 @@ const Apple = () => {
   const menMaskWrapper = useRef(null)
   const slideZeroPinWrapper = useRef(null)
   const menDescWrapper = useRef(null)
-  const scaleDownImage = useRef(null)
+  const quoteWrapper = useRef(null)
 
   useEffect(() => {
     const controller = new ScrollMagic.Controller()
@@ -455,20 +455,17 @@ const Apple = () => {
       // .addIndicators()
       .addTo(controller)
 
-    const tlScaleDownImageAnimation = new TimelineMax()
-    tlScaleDownImageAnimation.fromTo(
-      scaleDownImage.current,
-      1,
-      { scale: 1.3 },
-      { scale: 0.6 }
-    )
-    // ScaleDownImageScene
+    const tlQuoteAnimation = new TimelineMax()
+    tlQuoteAnimation.from(quoteWrapper.current, 1, {
+      opacity: 0,
+    })
+    // QuoteFadeInScene
     new ScrollMagic.Scene({
       triggerElement: slideTwoPinWrapper.current,
-      triggerHook: 0,
-      duration: '200%',
+      triggerHook: 0.4,
+      duration: '50%',
     })
-      .setTween(tlScaleDownImageAnimation)
+      .setTween(tlQuoteAnimation)
       .addIndicators()
       .addTo(controller)
   }, [])
@@ -571,12 +568,14 @@ const Apple = () => {
           </article>
           <article id="slide02" className="slide">
             <div ref={slideTwoPinWrapper} className="pin-wrapper">
-              <div ref={scaleDownImage} className="img"></div>
+              <div className="img"></div>
               <div className="wrapper">
-                <p className="quote">
-                  « Les limites sont faites pour être repoussées. »
-                </p>
-                <p className="white-name">Chris Burkard</p>
+                <div ref={quoteWrapper}>
+                  <p className="quote">
+                    « Les limites sont faites pour être repoussées. »
+                  </p>
+                  <p className="white-name">Chris Burkard</p>
+                </div>
               </div>
             </div>
           </article>
