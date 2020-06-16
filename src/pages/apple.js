@@ -300,7 +300,7 @@ const SimpleDemo = () => {
         trigger: iphoneTextTrigger.current,
         start: 'bottom bottom',
         scrub: true,
-        markers: true,
+        // markers: true,
       },
     })
     tlIphoneScaleDownAnimation
@@ -310,6 +310,62 @@ const SimpleDemo = () => {
       })
       .to(iphoneImageWrapper.current, 3, { scale: 2.2, y: '-50%' })
       .to(iphoneImageWrapper.current, 3, { scale: 1, y: '0%' })
+
+    const tlIphoneSplitAnimation = gsap.timeline({
+      ease: 'none',
+      scrollTrigger: {
+        trigger: iphoneTrigger.current,
+        start: 'bottom bottom',
+        pin: true,
+        scrub: true,
+        markers: true,
+      },
+    })
+    tlIphoneSplitAnimation
+      .to(iphoneOne.current, {
+        x: '-54%',
+        duration: 3,
+      })
+      .to(
+        iphoneTwo.current,
+        {
+          x: '54%',
+          duration: 3,
+        },
+        '-=3'
+      )
+      .from(
+        iphoneOneText.current,
+        {
+          autoAlpha: 0,
+          duration: 0.3,
+        },
+        '-=3'
+      )
+      .from(
+        iphoneTwoText.current,
+        {
+          autoAlpha: 0,
+          duration: 0.3,
+        },
+        '-=3'
+      )
+      .to(
+        iphoneOneText.current,
+        {
+          x: '-30%',
+          duration: 3,
+        },
+        '-=3'
+      )
+      .to(
+        iphoneTwoText.current,
+        {
+          x: '30%',
+          duration: 3,
+        },
+        '-=3'
+      )
   }, [])
 
   return (
