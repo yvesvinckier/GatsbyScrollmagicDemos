@@ -1,14 +1,9 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useRef, useEffect } from 'react'
 import styled from 'styled-components'
 import Helmet from 'react-helmet'
-import { TimelineMax, Linear, TweenMax, Sine } from 'gsap'
-// eslint-disable-next-line import/no-unresolved
-import ScrollMagic from 'ScrollMagic'
 
-// eslint-disable-next-line import/no-unresolved
-import 'animation.gsap'
-// eslint-disable-next-line import/no-unresolved
-import 'debug.addIndicators'
+import gsap from 'gsap'
+import ScrollTrigger from 'gsap/ScrollTrigger'
 
 import IphoneOne from '../assets/images/iphone-1.png'
 import IphoneThree from '../assets/images/iphone-3.png'
@@ -18,8 +13,10 @@ import IphoneLeft from '../assets/images/iphone-left.png'
 import Man from '../assets/images/display_pro__9ci00tik8gyi_large.jpg'
 import Landscape from '../assets/images/display_hero_screen__eik3891ojtoy_large_2x.jpg'
 
-import { images } from '../components/sequence'
+// import { images } from '../components/sequence'
 import Large0000 from '../assets/sequence/large_0000.jpg'
+
+gsap.registerPlugin(ScrollTrigger)
 
 const OverFlow = styled.div`
   overflow-x: hidden;
@@ -40,7 +37,7 @@ const HeroSection = styled.div`
     padding-bottom: 79px;
     padding-top: 141px;
     text-align: center;
-    color: ${props => props.theme.colors.base};
+    color: ${(props) => props.theme.colors.base};
     h1 {
       font-size: 32px;
       line-height: 1.16667;
@@ -188,23 +185,23 @@ const CrossRevealSections = styled.section`
         line-height: 1.05;
         font-weight: 700;
         letter-spacing: -0.015em;
-        color: ${props => props.theme.colors.secondary};
+        color: ${(props) => props.theme.colors.secondary};
       }
       h3 {
         font-size: 80px;
         line-height: 1.05;
         font-weight: 700;
         letter-spacing: -0.015em;
-        color: ${props => props.theme.colors.base};
+        color: ${(props) => props.theme.colors.base};
       }
       .pro-name {
         font-weight: 700;
-        color: ${props => props.theme.colors.base};
+        color: ${(props) => props.theme.colors.base};
         line-height: 1.3;
         font-size: 17px;
       }
       .pro-job {
-        color: ${props => props.theme.colors.base};
+        color: ${(props) => props.theme.colors.base};
         line-height: 1.3;
         font-weight: 400;
         letter-spacing: -0.022em;
@@ -270,7 +267,7 @@ const CrossRevealSections = styled.section`
   }
 `
 
-const Apple = () => {
+const SimpleDemo = () => {
   const heroSubtitle = useRef(null)
   const heroTitle = useRef(null)
   const heroImage = useRef(null)
@@ -297,78 +294,15 @@ const Apple = () => {
   const quoteWrapper = useRef(null)
 
   useEffect(() => {
-    const controller = new ScrollMagic.Controller()
-
-    const tlHeroAnimation = new TimelineMax()
-    tlHeroAnimation
-      .from(heroSubtitle.current, 1, {
-        opacity: 0,
-        y: '100%',
-        ease: Sine.easeOut,
-      })
-      .from(
-        heroTitle.current,
-        1,
-        { opacity: 0, y: '40px', ease: Sine.easeOut },
-        '-=0.8'
-      )
-      .from(
-        heroImage.current,
-        1,
-        { opacity: 0, y: '40px', ease: Sine.easeOut },
-        '-=0.8'
-      )
-
-    const tlHeroFadeOut = new TimelineMax().to(heroTitleWrapper.current, 0.3, {
-      opacity: 0,
-      y: '-140%',
-      ease: Sine.easeOut,
-    })
-
-    // heroScene
-    new ScrollMagic.Scene({
-      triggerElement: heroTrigger.current,
-      triggerHook: 0,
-      duration: '100%',
-    })
-      .setTween(tlHeroFadeOut)
-      // .addIndicators()
-      .addTo(controller)
-
-    const obj = { curImg: 0 }
-    const UpdateImage = heroImage.current
-
-    const tlSequenceAnimation = TweenMax.to(obj, 0.5, {
-      curImg: images.length - 1, // animate propery curImg to number of images
-      roundProps: 'curImg', // only integers so it can be used as an array index
-      immediateRender: true, // load first image automatically
-      ease: Linear.easeNone, // show every image the same ammount of time
-      onUpdate: function() {
-        UpdateImage.setAttribute('src', images[obj.curImg])
+    const tlIphoneScaleDownAnimation = gsap.timeline({
+      ease: 'none',
+      scrollTrigger: {
+        trigger: iphoneTextTrigger.current,
+        start: 'bottom bottom',
+        scrub: true,
+        markers: true,
       },
     })
-    // tlSequenceHeroScene
-    new ScrollMagic.Scene({
-      triggerElement: heroTrigger.current,
-      triggerHook: 0,
-      duration: '100%',
-    })
-      .setTween(tlSequenceAnimation)
-      .setPin(heroTrigger.current)
-      // .addIndicators()
-      .addTo(controller)
-
-    // iphoneTextPinScene
-    new ScrollMagic.Scene({
-      triggerElement: heroTrigger.current,
-      triggerHook: 0,
-      duration: '100%',
-    })
-      .setPin(iphoneTextTrigger.current)
-      // .addIndicators()
-      .addTo(controller)
-
-    const tlIphoneScaleDownAnimation = new TimelineMax()
     tlIphoneScaleDownAnimation
       .set(iphoneImageWrapper.current, {
         scale: 4,
@@ -376,98 +310,6 @@ const Apple = () => {
       })
       .to(iphoneImageWrapper.current, 3, { scale: 2.2, y: '-50%' })
       .to(iphoneImageWrapper.current, 3, { scale: 1, y: '0%' })
-
-    // iphoneScaleDownScene
-    new ScrollMagic.Scene({
-      triggerElement: iphoneTextTrigger.current,
-      triggerHook: 0,
-      duration: '200%',
-    })
-      .setTween(tlIphoneScaleDownAnimation)
-      // .addIndicators()
-      .addTo(controller)
-
-    const tlIphoneSplitAnimation = new TimelineMax()
-    tlIphoneSplitAnimation
-      .to(iphoneOne.current, 3, { x: '-54%' })
-      .to(iphoneTwo.current, 3, { x: '54%' }, '-=3')
-      .from(iphoneOneText.current, 0.3, { autoAlpha: 0 }, '-=3')
-      .from(iphoneTwoText.current, 0.3, { autoAlpha: 0 }, '-=3')
-      .to(iphoneOneText.current, 3, { x: '-30%' }, '-=3')
-      .to(iphoneTwoText.current, 3, { x: '30%' }, '-=3')
-
-      .set(iphoneStick.current, { display: 'block' })
-
-      .to(iphoneOneImageBehind.current, 3, { x: '-50%' })
-      .to(iphoneTwoImageBehind.current, 3, { x: '50%' }, '-=3')
-
-      .to(iphoneOneImage.current, 0.5, { autoAlpha: 0 }, '-=3')
-      .to(iphoneTwoImage.current, 0.5, { autoAlpha: 0 }, '-=3')
-
-      .to(iphoneOneText.current, 0.3, { autoAlpha: 0 }, '-=3')
-      .to(iphoneTwoText.current, 0.3, { autoAlpha: 0 }, '-=3')
-
-    // iphoneSplitScene
-    new ScrollMagic.Scene({
-      triggerElement: iphoneTrigger.current,
-      triggerHook: 0,
-      duration: '100%',
-    })
-      .setTween(tlIphoneSplitAnimation)
-      .setPin(iphoneTrigger.current)
-      // .addIndicators()
-      .addTo(controller)
-
-    // crossRevealSectionOneScene
-    new ScrollMagic.Scene({
-      triggerElement: slideTrigger.current,
-      triggerHook: 0,
-      duration: '100%',
-    })
-      .setPin(slideOnePinWrapper.current)
-      .addTo(controller)
-
-    // crossRevealSectionTwoScene
-    new ScrollMagic.Scene({
-      triggerElement: slideTrigger.current,
-      triggerHook: 0,
-      duration: '100%',
-    })
-      .setPin(slideTwoPinWrapper.current)
-      .addTo(controller)
-
-    const tlManMaskAnimation = new TimelineMax()
-    tlManMaskAnimation
-      .from(menMaskWrapper.current, 3, {
-        width: '70%',
-        ease: Linear.easeNone,
-      })
-      .from(menDescWrapper.current, 0.3, {
-        autoAlpha: 0,
-      })
-    // ManMaskScene
-    new ScrollMagic.Scene({
-      triggerElement: slideZeroPinWrapper.current,
-      triggerHook: 0,
-      duration: '100%',
-    })
-      .setTween(tlManMaskAnimation)
-      // .addIndicators()
-      .addTo(controller)
-
-    const tlQuoteAnimation = new TimelineMax()
-    tlQuoteAnimation.from(quoteWrapper.current, 1, {
-      opacity: 0,
-    })
-    // QuoteFadeInScene
-    new ScrollMagic.Scene({
-      triggerElement: slideTwoPinWrapper.current,
-      triggerHook: 0.4,
-      duration: '50%',
-    })
-      .setTween(tlQuoteAnimation)
-      .addIndicators()
-      .addTo(controller)
   }, [])
 
   return (
@@ -590,9 +432,8 @@ const Apple = () => {
           </article>
         </CrossRevealSections>
       </OverFlow>
-      >
     </>
   )
 }
 
-export default Apple
+export default SimpleDemo
