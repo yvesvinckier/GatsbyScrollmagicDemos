@@ -6,7 +6,7 @@
 
 // You can delete this file if you're not using it
 
-const Path = require('path')
+/* const Path = require('path')
 
 exports.onCreateWebpackConfig = ({
   stage,
@@ -64,4 +64,4 @@ exports.onCreateWebpackConfig = ({
       },
     },
   })
-}
+} */
