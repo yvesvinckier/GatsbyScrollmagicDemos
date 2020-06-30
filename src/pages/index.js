@@ -2,7 +2,8 @@ import React, { useRef, useEffect } from 'react'
 import styled from 'styled-components'
 import Helmet from 'react-helmet'
 
-import { gsap, ScrollTrigger } from 'gsap/all'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 import TubeSrc from '../assets/images/tube.png'
 import FoamDispenserSrc from '../assets/images/foam_dispenser.png'
@@ -10,6 +11,7 @@ import FoamDispenserSrc from '../assets/images/foam_dispenser.png'
 // import Man from '../assets/images/display_pro__9ci00tik8gyi_large.jpg'
 import Landscape from '../assets/images/landscape.png'
 import DeCesare from '../assets/images/de_cesare.png'
+import IphoneVideo from '../assets/video/trailer.mp4'
 
 // import { images } from '../components/sequence'
 import Large0000 from '../assets/sequence/large_0000.jpg'
@@ -77,7 +79,7 @@ const ProductsTextSection = styled.section`
     font-size: 36px;
     line-height: 1.16667;
     font-weight: 500;
-    letter-spacing: 0em;
+    letter-spacing: 0;
     padding-right: 48px;
   }
   .position-h2 {
@@ -211,10 +213,10 @@ const VerticalCrossReveal = styled.section`
     position: absolute;
     overflow: hidden;
     top: 0;
-    transform: translate(100%, 0px);
+    transform: translate(100%, 0);
   }
   .verticalAfterImage img {
-    transform: translate(-100%, 0px);
+    transform: translate(-100%, 0);
   }
 
   .verticalComparisonImage img {
@@ -266,6 +268,35 @@ const VerticalCrossReveal = styled.section`
   }
 `
 
+const IntroVideo = styled.div`
+  height: 100vh;
+  position: relative;
+  h1 {
+    color: #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 80px;
+  }
+  video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+`
+
+const RevolutionnarySection = styled.section`
+  height: 100vh;
+  color: ${(props) => props.theme.colors.smartBlack};
+  h1 {
+    margin: auto auto;
+    padding-top: 45vh;
+    text-align: center;
+    font-size: 80px;
+  }
+`
+
 const HorizontalCrossReveal = styled.section`
   position: relative;
   padding-bottom: 56.25%; /* to maintain aspect ratio (responsive!) */
@@ -277,10 +308,10 @@ const HorizontalCrossReveal = styled.section`
     position: absolute;
     overflow: hidden;
     top: 0;
-    transform: translate(100%, 0px);
+    transform: translate(100%, 0);
   }
   .afterImage img {
-    transform: translate(-100%, 0px);
+    transform: translate(-100%, 0);
   }
   .comparisonImage img {
     width: 100%;
@@ -353,13 +384,41 @@ const SimpleDemo = () => {
   const CreamTubeRef = useRef(null)
   const TubeRef = useRef(null)
 
+  const IntroVideoRef = useRef(null)
+  const videoRef = useRef(null)
+  const IntroVideoH1Ref = useRef(null)
+  const RevolutionnarySectionRef = useRef(null)
+  const RevolutionnaryText = useRef(null)
+
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger)
+
+    videoRef.current.currentTime = 0
 
     if (typeof window !== `undefined`) {
       gsap.registerPlugin(ScrollTrigger)
       gsap.core.globals('ScrollTrigger', ScrollTrigger)
     }
+
+    ScrollTrigger.create({
+      trigger: IntroVideoRef.current,
+      scrub: true,
+      pin: IntroVideoRef.current,
+      start: 'center center',
+      end: '+=20000',
+      markers: true,
+      onUpdate: function (self) {
+        if (videoRef.current) {
+          const scrollPos = self.progress
+          const videoDuration = videoRef.current.duration
+          const videoCurrentTime = videoDuration * scrollPos
+
+          if (videoCurrentTime) {
+            videoRef.current.currentTime = videoCurrentTime
+          }
+        }
+      },
+    })
 
     gsap.utils.toArray('.VerticalComparisonSection').forEach((section) => {
       let VerticalCrossTween = gsap.timeline({
@@ -371,7 +430,7 @@ const SimpleDemo = () => {
           scrub: true,
           pin: true,
           anticipatePin: 1,
-          markers: true,
+          // markers: true,
         },
         defaults: { ease: 'none' },
       })
@@ -518,7 +577,7 @@ const SimpleDemo = () => {
         },
         '-=3'
       )
-  }, [])
+  }, [IntroVideoRef, videoRef])
 
   return (
     <>
@@ -676,6 +735,13 @@ const SimpleDemo = () => {
           </div>
         </div>
       </SlideZeroSection>
+      <IntroVideo ref={IntroVideoRef}>
+        <h1 ref={IntroVideoH1Ref}>The App</h1>
+        <video ref={videoRef} src={IphoneVideo}></video>
+      </IntroVideo>
+      <RevolutionnarySection ref={RevolutionnarySectionRef}>
+        <h1 ref={RevolutionnaryText}>REVOLUTIONARRY</h1>
+      </RevolutionnarySection>
     </>
   )
 }

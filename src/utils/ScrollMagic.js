@@ -6,17 +6,17 @@ ScrollMagic.Scene.addOption(
   'tweenChanges', // name
   false, // default
 
-  function(val) {
+  function (val) {
     // validation callback
     return !!val
   }
 )
 
-ScrollMagic.Scene.extend(function() {
+ScrollMagic.Scene.extend(function () {
   var Scene = this,
     _tween
 
-  var log = function() {
+  var log = function () {
     if (Scene._log) {
       // not available, when main source minified
       Array.prototype.splice.call(arguments, 1, 0, '(animation.gsap)', '->')
@@ -25,10 +25,10 @@ ScrollMagic.Scene.extend(function() {
   }
 
   // set listeners
-  Scene.on('progress.plugin_gsap', function() {
+  Scene.on('progress.plugin_gsap', function () {
     updateTweenProgress()
   })
-  Scene.on('destroy.plugin_gsap', function(e) {
+  Scene.on('destroy.plugin_gsap', function (e) {
     Scene.removeTween(e.reset)
   })
 
@@ -36,7 +36,7 @@ ScrollMagic.Scene.extend(function() {
    * Update the tween progress to current position.
    * @private
    */
-  var updateTweenProgress = function() {
+  var updateTweenProgress = function () {
     if (_tween) {
       var progress = Scene.progress(),
         state = Scene.state()
@@ -113,7 +113,7 @@ ScrollMagic.Scene.extend(function() {
    * @param {object} params - The parameters for the tween
    * @returns {Scene} Parent object for chaining.
    */
-  Scene.setTween = function(TweenObject, duration, params) {
+  Scene.setTween = function (TweenObject, duration, params) {
     var newTween
     if (arguments.length > 1) {
       if (arguments.length < 3) {
@@ -169,7 +169,7 @@ ScrollMagic.Scene.extend(function() {
       // controller is needed to know scroll direction.
       var triggerTweens = Tween.getTweensOf(Scene.triggerElement()),
         vertical = Scene.controller().info('vertical')
-      triggerTweens.forEach(function(value, index) {
+      triggerTweens.forEach(function (value, index) {
         var tweenvars = value.vars.css || value.vars,
           condition = vertical
             ? tweenvars.top !== undefined || tweenvars.bottom !== undefined
@@ -191,7 +191,7 @@ ScrollMagic.Scene.extend(function() {
           ? _tween.getChildren(true, true, false)
           : [_tween],
         // get all nested tween objects
-        newCallback = function() {
+        newCallback = function () {
           log(
             2,
             'WARNING: tween was overwritten by another. To learn how to avoid this issue see here: https://github.com/janpaepke/ScrollMagic/wiki/WARNING:-tween-was-overwritten-by-another'
@@ -203,7 +203,7 @@ ScrollMagic.Scene.extend(function() {
         if (oldCallback !== newCallback) {
           // if tweens is added more than once
           oldCallback = thisTween.vars.onOverwrite
-          thisTween.vars.onOverwrite = function() {
+          thisTween.vars.onOverwrite = function () {
             if (oldCallback) {
               oldCallback.apply(this, arguments)
             }
@@ -235,7 +235,7 @@ ScrollMagic.Scene.extend(function() {
    * @param {boolean} [reset=false] - If `true` the tween will be reset to its initial values.
    * @returns {Scene} Parent object for chaining.
    */
-  Scene.removeTween = function(reset) {
+  Scene.removeTween = function (reset) {
     if (_tween) {
       if (reset) {
         _tween.progress(0).pause()
