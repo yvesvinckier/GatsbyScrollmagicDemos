@@ -13,13 +13,13 @@ import Landscape from '../assets/images/landscape.png'
 import DeCesare from '../assets/images/de_cesare.png'
 import IphoneVideo from '../assets/video/trailer.mp4'
 
-// import { images } from '../components/sequence'
+import { images } from '../components/sequence'
 import Large0000 from '../assets/sequence/large_0000.jpg'
 
 const HeroSection = styled.div`
-  height: 100vh;
   background: #fff;
   width: 100vw;
+  position: relative;
   .macbook-image-wrapper {
     position: relative;
     height: 100vh;
@@ -47,11 +47,11 @@ const HeroSection = styled.div`
       height: 400px;
     }
     .macbook-image {
+      z-index: -1;
       background: #fff;
       position: absolute;
       width: 100%;
       height: 100%;
-      z-index: -1;
       img {
         padding-top: 50px;
         margin: 0 auto;
@@ -393,6 +393,43 @@ const SimpleDemo = () => {
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger)
 
+    const obj = { curImg: 0 }
+    const UpdateImage = heroImage.current
+
+    const tlSequenceAnimation = gsap.timeline({
+      scrollTrigger: {
+        trigger: heroTrigger.current,
+        scrub: true,
+        pin: true,
+        start: 'top top',
+        end: '+=100%',
+        markers: true,
+      },
+    })
+
+    // const tlSequenceAnimation = gsap.timeline({
+    //   scrollTrigger: {
+    //     trigger: heroTrigger.current,
+    //     scrub: true,
+    //     pin: heroTrigger.current,
+    //     pinSpacing: false,
+    //     start: 'center center',
+    //     end: '+=100%',
+    //     anticipatePin: 1,
+    //     markers: true,
+    //   },
+    // })
+
+    tlSequenceAnimation.to(obj, {
+      curImg: images.length - 1, // animate propery curImg to number of images
+      roundProps: 'curImg', // only integers so it can be used as an array index
+      immediateRender: true, // load first image automatically
+      ease: 'none', // show every image the same ammount of time
+      onUpdate: () => {
+        UpdateImage.setAttribute('src', images[obj.curImg])
+      },
+    })
+
     videoRef.current.currentTime = 0
 
     if (typeof window !== `undefined`) {
@@ -406,7 +443,7 @@ const SimpleDemo = () => {
       pin: IntroVideoRef.current,
       start: 'center center',
       end: '+=20000',
-      markers: true,
+      // markers: true,
       onUpdate: function (self) {
         if (videoRef.current) {
           const scrollPos = self.progress
