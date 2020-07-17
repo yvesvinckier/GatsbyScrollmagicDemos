@@ -11,13 +11,12 @@ import FoamDispenserSrc from '../assets/images/foam_dispenser.png'
 // import Man from '../assets/images/display_pro__9ci00tik8gyi_large.jpg'
 import Landscape from '../assets/images/landscape.png'
 import DeCesare from '../assets/images/de_cesare.png'
-import IphoneVideo from '../assets/video/trailer.mp4'
 
-import { images } from '../components/sequence'
-import Large0000 from '../assets/sequence/large_0000.jpg'
+import { images } from '../components/sequenceTwo'
+import Large0000 from '../assets/sequence_iphone/large_0000.png'
 
-const HeroSection = styled.div`
-  background: #fff;
+const SequenceSection = styled.div`
+  background: #080f0f;
   width: 100vw;
   position: relative;
   .macbook-image-wrapper {
@@ -48,14 +47,16 @@ const HeroSection = styled.div`
     }
     .macbook-image {
       z-index: -1;
-      background: #fff;
+      background: transparent;
       position: absolute;
-      width: 100%;
-      height: 100%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       img {
-        padding-top: 50px;
-        margin: 0 auto;
-        width: 65%;
+        display: block;
+        margin: auto;
+        height: 900px;
+        width: 638px;
       }
     }
   }
@@ -268,35 +269,6 @@ const VerticalCrossReveal = styled.section`
   }
 `
 
-const IntroVideo = styled.div`
-  height: 100vh;
-  position: relative;
-  h1 {
-    color: #fff;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 80px;
-  }
-  video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-`
-
-const RevolutionnarySection = styled.section`
-  height: 100vh;
-  color: ${(props) => props.theme.colors.smartBlack};
-  h1 {
-    margin: auto auto;
-    padding-top: 45vh;
-    text-align: center;
-    font-size: 80px;
-  }
-`
-
 const HorizontalCrossReveal = styled.section`
   position: relative;
   padding-bottom: 56.25%; /* to maintain aspect ratio (responsive!) */
@@ -386,11 +358,13 @@ const SimpleDemo = () => {
 
   const IntroVideoRef = useRef(null)
   const videoRef = useRef(null)
-  const IntroVideoH1Ref = useRef(null)
-  const RevolutionnarySectionRef = useRef(null)
-  const RevolutionnaryText = useRef(null)
 
   useEffect(() => {
+    if (typeof window !== `undefined`) {
+      gsap.registerPlugin(ScrollTrigger)
+      gsap.core.globals('ScrollTrigger', ScrollTrigger)
+    }
+
     gsap.registerPlugin(ScrollTrigger)
 
     const obj = { curImg: 0 }
@@ -401,24 +375,11 @@ const SimpleDemo = () => {
         trigger: heroTrigger.current,
         scrub: true,
         pin: true,
-        start: 'top top',
+        start: 'center center',
         end: '+=100%',
         markers: true,
       },
     })
-
-    // const tlSequenceAnimation = gsap.timeline({
-    //   scrollTrigger: {
-    //     trigger: heroTrigger.current,
-    //     scrub: true,
-    //     pin: heroTrigger.current,
-    //     pinSpacing: false,
-    //     start: 'center center',
-    //     end: '+=100%',
-    //     anticipatePin: 1,
-    //     markers: true,
-    //   },
-    // })
 
     tlSequenceAnimation.to(obj, {
       curImg: images.length - 1, // animate propery curImg to number of images
@@ -427,33 +388,6 @@ const SimpleDemo = () => {
       ease: 'none', // show every image the same ammount of time
       onUpdate: () => {
         UpdateImage.setAttribute('src', images[obj.curImg])
-      },
-    })
-
-    videoRef.current.currentTime = 0
-
-    if (typeof window !== `undefined`) {
-      gsap.registerPlugin(ScrollTrigger)
-      gsap.core.globals('ScrollTrigger', ScrollTrigger)
-    }
-
-    ScrollTrigger.create({
-      trigger: IntroVideoRef.current,
-      scrub: true,
-      pin: IntroVideoRef.current,
-      start: 'center center',
-      end: '+=20000',
-      // markers: true,
-      onUpdate: function (self) {
-        if (videoRef.current) {
-          const scrollPos = self.progress
-          const videoDuration = videoRef.current.duration
-          const videoCurrentTime = videoDuration * scrollPos
-
-          if (videoCurrentTime) {
-            videoRef.current.currentTime = videoCurrentTime
-          }
-        }
       },
     })
 
@@ -621,21 +555,6 @@ const SimpleDemo = () => {
       <Helmet>
         <meta name="robots" content="noindex, nofollow" />
       </Helmet>
-      <HeroSection>
-        <div ref={heroTrigger}>
-          <div className="macbook-image-wrapper">
-            <div ref={heroTitleWrapper}>
-              <h1 ref={heroSubtitle}>MacBook Pro</h1>
-              <h2 ref={heroTitle}>
-                Le nouveau <br /> prodige.
-              </h2>
-            </div>
-            <div className="macbook-image">
-              <img ref={heroImage} src={Large0000} alt="" />
-            </div>
-          </div>
-        </div>
-      </HeroSection>
       <ProductsTextSection ref={TextSectionTrigger}>
         <div className="grid-12">
           <h2 className="position-h2">
@@ -772,13 +691,21 @@ const SimpleDemo = () => {
           </div>
         </div>
       </SlideZeroSection>
-      <IntroVideo ref={IntroVideoRef}>
-        <h1 ref={IntroVideoH1Ref}>The App</h1>
-        <video ref={videoRef} src={IphoneVideo}></video>
-      </IntroVideo>
-      <RevolutionnarySection ref={RevolutionnarySectionRef}>
-        <h1 ref={RevolutionnaryText}>REVOLUTIONARRY</h1>
-      </RevolutionnarySection>
+      <SequenceSection>
+        <div ref={heroTrigger}>
+          <div className="macbook-image-wrapper">
+            <div ref={heroTitleWrapper}>
+              <h1 ref={heroSubtitle}>MacBook Pro</h1>
+              <h2 ref={heroTitle}>
+                Le nouveau <br /> prodige.
+              </h2>
+            </div>
+            <div className="macbook-image">
+              <img ref={heroImage} src={Large0000} alt="" />
+            </div>
+          </div>
+        </div>
+      </SequenceSection>
     </>
   )
 }
