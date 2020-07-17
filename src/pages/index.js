@@ -17,42 +17,70 @@ import Large0000 from '../assets/sequence_iphone/large_0000.png'
 
 const SequenceSection = styled.div`
   background: #080f0f;
-  width: 100vw;
+  width: 100%;
   position: relative;
+  .maxWidthContainer {
+    max-width: 1140px;
+    margin: 0 auto;
+  }
   .macbook-image-wrapper {
     position: relative;
     height: 100vh;
     width: 100%;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding-bottom: 79px;
-    padding-top: 141px;
-    text-align: center;
     color: ${(props) => props.theme.colors.smartBlack};
-    h1 {
-      font-size: 32px;
-      line-height: 1.16667;
-      font-weight: 700;
-      letter-spacing: 0.009em;
-    }
-    h2 {
-      font-size: 110px;
-      font-weight: 700;
-      margin-top: 8px;
-      line-height: 0.9;
-      letter-spacing: -0.009em;
-      height: 400px;
+    .macbook-text {
+      flex-grow: 0;
+      flex-shrink: 0;
+      flex-basis: 50%;
+      max-width: 50%;
+      h1 {
+        font-size: 96px;
+        line-height: 0.875;
+        font-weight: 700;
+        letter-spacing: 0.009em;
+        color: #ffffff;
+      }
+      h2 {
+        padding-top: 10px;
+        font-size: 26px;
+        line-height: 1.15385;
+        font-weight: 700;
+        letter-spacing: 0.002em;
+        margin-top: 8px;
+        color: #ffffff;
+      }
+      a.buttonStyle {
+        display: inline-block;
+        padding: 1em 2em;
+        margin: 7em 0.5em 0.5em 0;
+        border-radius: 2em;
+        box-sizing: border-box;
+        text-decoration: none;
+        font-weight: 400;
+        color: #080f0f;
+        background-color: #00efeb;
+        text-align: center;
+        transition: all 0.6s;
+        &:hover {
+          background-color: #00bcb9;
+        }
+      }
     }
     .macbook-image {
-      z-index: -1;
+      position: relative;
+      flex-grow: 0;
+      flex-shrink: 0;
+      flex-basis: 50%;
+      max-width: 50%;
       background: transparent;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
       img {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
         display: block;
         margin: auto;
         height: 900px;
@@ -356,9 +384,6 @@ const SimpleDemo = () => {
   const CreamTubeRef = useRef(null)
   const TubeRef = useRef(null)
 
-  const IntroVideoRef = useRef(null)
-  const videoRef = useRef(null)
-
   useEffect(() => {
     if (typeof window !== `undefined`) {
       gsap.registerPlugin(ScrollTrigger)
@@ -375,6 +400,7 @@ const SimpleDemo = () => {
         trigger: heroTrigger.current,
         scrub: true,
         pin: true,
+        anticipatePin: 1,
         start: 'center center',
         end: '+=100%',
         markers: true,
@@ -548,7 +574,7 @@ const SimpleDemo = () => {
         },
         '-=3'
       )
-  }, [IntroVideoRef, videoRef])
+  }, [])
 
   return (
     <>
@@ -558,12 +584,11 @@ const SimpleDemo = () => {
       <ProductsTextSection ref={TextSectionTrigger}>
         <div className="grid-12">
           <h2 className="position-h2">
-            Designed for those who defy limits and change the world, the new
-            MacBook Pro is by far the most powerful notebook we’ve ever made.
-            With an immersive 16-inch Retina display, superfast processors,
-            next-generation graphics, the largest battery capacity ever in a
-            MacBook Pro, a new Magic Keyboard, and massive storage, it’s the
-            ultimate pro notebook for the ultimate user.
+            It is our understanding that the skin care is a field merging
+            science, beauty, aesthetics and health in every treatment. Based on
+            a revolutionary technology the Natural cleaning power comes with a
+            triple zero HMIS score for all products. This makes GreenCare safe
+            on your skin, safe for your equipment and safe to store anywhere.
           </h2>
         </div>
       </ProductsTextSection>
@@ -644,7 +669,7 @@ const SimpleDemo = () => {
                   what we love »<br />
                 </span>
               </p>
-              <p className="white-name">Chris Burkard</p>
+              <p className="white-name">John Buking</p>
             </div>
           </div>
         </div>
@@ -652,8 +677,8 @@ const SimpleDemo = () => {
       <SlideZeroSection>
         <div className="slide00wrapper">
           <div className="section-content">
-            <h2>Écran Retina</h2>
-            <h3>Un sublime espace de travail. Un immense terrain de jeu.</h3>
+            <h2>Do you know</h2>
+            <h3>how big is your environmental footprint?</h3>
           </div>
         </div>
       </SlideZeroSection>
@@ -662,7 +687,7 @@ const SimpleDemo = () => {
           <img src={DeCesare} alt="before" />
           <div className="vertical_men_wrapper">
             <h3 className="vertical_pro-name">Mike Richard</h3>
-            <p className="vertical_pro-job">Photographe d’aventure</p>
+            <p className="vertical_pro-job">Skin Care Research</p>
           </div>
         </div>
         <div className="verticalComparisonImage verticalAfterImage">
@@ -686,22 +711,32 @@ const SimpleDemo = () => {
       <SlideZeroSection>
         <div className="slide00wrapper">
           <div className="section-content">
-            <h2>Écran Retina</h2>
-            <h3>Un sublime espace de travail. Un immense terrain de jeu.</h3>
+            <h2>Take Care</h2>
+            <h3>
+              You can get your skin and body in tip-top shape without taking
+              your toll on the environment.
+            </h3>
           </div>
         </div>
       </SlideZeroSection>
       <SequenceSection>
-        <div ref={heroTrigger}>
-          <div className="macbook-image-wrapper">
-            <div ref={heroTitleWrapper}>
-              <h1 ref={heroSubtitle}>MacBook Pro</h1>
-              <h2 ref={heroTitle}>
-                Le nouveau <br /> prodige.
-              </h2>
-            </div>
-            <div className="macbook-image">
-              <img ref={heroImage} src={Large0000} alt="" />
+        <div className="maxWidthContainer">
+          <div ref={heroTrigger}>
+            <div className="macbook-image-wrapper">
+              <div className="macbook-text" ref={heroTitleWrapper}>
+                <h1 ref={heroSubtitle}>ZER&Oslash;</h1>
+                <h2 ref={heroTitle}>
+                  How big is your
+                  <br /> environmental footprint? <br />
+                  The app for Cutting Carbon <br /> and Caring for the Climate
+                </h2>
+                <a href="" className="buttonStyle">
+                  Download
+                </a>
+              </div>
+              <div className="macbook-image">
+                <img ref={heroImage} src={Large0000} alt="" />
+              </div>
             </div>
           </div>
         </div>
