@@ -385,12 +385,12 @@ const SimpleDemo = () => {
   const TubeRef = useRef(null)
 
   useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger)
+
     if (typeof window !== `undefined`) {
       gsap.registerPlugin(ScrollTrigger)
       gsap.core.globals('ScrollTrigger', ScrollTrigger)
     }
-
-    gsap.registerPlugin(ScrollTrigger)
 
     const obj = { curImg: 0 }
     const UpdateImage = heroImage.current
