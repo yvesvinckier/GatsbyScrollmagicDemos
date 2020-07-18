@@ -2,5 +2,9 @@
   "extends": "gatsby-standard",
   "rules": {
     "no-unsafe-finally": "off"
+  },
+  "globals": {
+    "Power2": false,
+    "Elastic": false
   }
 }

@@ -8,6 +8,7 @@ const theme = {
     darkGreen: '#00706E',
     smartBlack: '#080F0F',
     veryLightBlue: '#C6FBFA',
+    whitePure: '#FFFFFF'
   },
   sizes: {
     maxWidth: '1200px',

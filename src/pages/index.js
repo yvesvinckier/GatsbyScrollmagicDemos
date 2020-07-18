@@ -16,11 +16,11 @@ import { images } from '../components/sequenceTwo'
 import Large0000 from '../assets/sequence_iphone/large_0000.png'
 
 const SequenceSection = styled.div`
-  background: #080f0f;
+  background: ${(props) => props.theme.colors.smartBlack};
   width: 100%;
   position: relative;
   .maxWidthContainer {
-    max-width: 1140px;
+    max-width: ${(props) => props.theme.sizes.maxWidth};
     margin: 0 auto;
   }
   .macbook-image-wrapper {
@@ -41,7 +41,7 @@ const SequenceSection = styled.div`
         line-height: 0.875;
         font-weight: 700;
         letter-spacing: 0.009em;
-        color: #ffffff;
+        color: ${(props) => props.theme.colors.whitePure};
       }
       h2 {
         padding-top: 10px;
@@ -50,7 +50,7 @@ const SequenceSection = styled.div`
         font-weight: 700;
         letter-spacing: 0.002em;
         margin-top: 8px;
-        color: #ffffff;
+        color: ${(props) => props.theme.colors.whitePure};
       }
       a.buttonStyle {
         display: inline-block;
@@ -60,12 +60,12 @@ const SequenceSection = styled.div`
         box-sizing: border-box;
         text-decoration: none;
         font-weight: 400;
-        color: #080f0f;
-        background-color: #00efeb;
+        color: ${(props) => props.theme.colors.smartBlack};
+        background-color: ${(props) => props.theme.colors.smartBlue};
         text-align: center;
         transition: all 0.6s;
         &:hover {
-          background-color: #00bcb9;
+          background-color: ${(props) => props.theme.colors.smartGreen};
         }
       }
     }
@@ -141,7 +141,7 @@ const ProductsSection = styled.section`
       position: relative;
     }
     p {
-      color: #fff;
+      color: ${(props) => props.theme.colors.whitePure};
       font-weight: 600;
       font-size: 20px;
       margin: 0 0 8px 0;
@@ -284,7 +284,7 @@ const VerticalCrossReveal = styled.section`
       font-size: 28px;
       line-height: 1.14286;
       letter-spacing: 0;
-      color: #fff;
+      color: ${(props) => props.theme.colors.whitePure};
       padding-top: 20px;
     }
     .vertical_quote {
@@ -292,7 +292,7 @@ const VerticalCrossReveal = styled.section`
       font-weight: 700;
       font-size: 80px;
       letter-spacing: -0.015em;
-      color: #fff;
+      color: ${(props) => props.theme.colors.whitePure};
     }
   }
 `
@@ -349,7 +349,7 @@ const HorizontalCrossReveal = styled.section`
       font-size: 28px;
       line-height: 1.14286;
       letter-spacing: 0;
-      color: #fff;
+      color: ${(props) => props.theme.colors.whitePure};
       padding-top: 20px;
     }
     .quote {
@@ -357,7 +357,7 @@ const HorizontalCrossReveal = styled.section`
       font-weight: 700;
       font-size: 80px;
       letter-spacing: -0.015em;
-      color: #fff;
+      color: ${(props) => props.theme.colors.whitePure};
     }
   }
 `
