@@ -1,13 +1,116 @@
 import React, { useRef, useEffect } from 'react'
+import styled from 'styled-components'
 import { useSpring, animated } from 'react-spring'
+
 import { gsap } from 'gsap'
 import { MorphSVGPlugin } from 'gsap/MorphSVGPlugin'
+import { DrawSVGPlugin } from 'gsap/DrawSVGPlugin'
 import { SplitText } from 'gsap/SplitText'
+import { Physics2DPlugin } from 'gsap/Physics2DPlugin'
 
 const calc = (x, y) => [x - window.innerWidth / 2, y - window.innerHeight / 2]
 const trans3 = (x, y) => `translate3d(${x / 12}px,${y / 12}px,0)`
 const trans2 = (x, y) => `translate3d(${x / 8}px,${y / 8}px,0)`
 const trans1 = (x, y) => `translate3d(${x / 4}px,${y / 4}px,0)`
+
+const HeroSection = styled.section`
+  position: relative;
+  overflow: hidden;
+  height: 70vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+  .GlobalParallaxSVG {
+    position: relative;
+    max-width: 1680px;
+    width: 100%;
+  }
+  h1 {
+    font-size: 22px;
+    font-weight: 400;
+    letter-spacing: 4px;
+    color: black;
+    text-align: center;
+    text-transform: uppercase;
+    transform: translateY(-200px);
+  }
+`
+const WaveSVGcontainer = styled.div`
+  @keyframes smoooooth {
+    0% {
+      d: path('M 27 10C 21 8 14 3 0 3L 0 0L 54 0L 54 14C 40 14 33 12 27 10Z');
+    }
+    50% {
+      d: path('M 27 14C 12 14 5 7 0 7L 0 0L 54 0L 54 7C 49 7 42 14 27 14Z');
+    }
+    100% {
+      d: path('M 27 10C 21 12 14 14 0 14L 0 0L 54 0L 54 3C 40 3 33 8 27 10Z');
+    }
+  }
+
+  position: absolute;
+  width: 100%;
+  z-index: -1;
+  bottom: 0;
+  .waveSVGmatrix {
+    position: relative;
+    height: 100%;
+    transform: matrix(1, 0, 0, -1, 0, 0);
+    svg {
+      display: block;
+      position: absolute;
+      width: 100%;
+      height: 10rem;
+      path {
+        fill: #c6fbfa;
+        width: 100%;
+        animation: smoooooth 25s linear infinite alternate;
+      }
+    }
+  }
+`
+const BackgroundPosRel = styled(animated.div)`
+  position: relative;
+  will-change: transform;
+  .parallax {
+    position: absolute;
+    bottom: -18px;
+    left: 50%;
+    transform: translate(-50%);
+  }
+`
+
+const MidgroundPosRel = styled(animated.div)`
+  position: relative;
+  will-change: transform;
+  .parallax {
+    position: absolute;
+    bottom: -18px;
+    left: 50%;
+    transform: translate(-50%);
+  }
+`
+
+const ForegroundPosRel = styled(animated.div)`
+  position: relative;
+  will-change: transform;
+  .parallax {
+    position: absolute;
+    bottom: -18px;
+    left: 50%;
+    transform: translate(-50%);
+  }
+`
+
+const LogoNaturalWrapper = styled.div`
+  height: 300px;
+`
 
 const WaveSVG = () => {
   return (
@@ -49,13 +152,14 @@ const LogoNatural = () => {
   const BlackShape2Ref = useRef()
 
   useEffect(() => {
+    gsap.registerPlugin(DrawSVGPlugin)
     gsap.set(NaturalRef.current.children, {
       drawSVG: '0%',
     })
     const drawNatural = gsap.timeline({
       paused: true,
       defaults: {
-        ease: 'linear',
+        ease: 'none',
       },
     })
     drawNatural.to(NaturalRef.current.children, {
@@ -84,7 +188,7 @@ const LogoNatural = () => {
         attr: {
           y2: 250,
         },
-        ease: Power2.easeInOut,
+        ease: 'power2.inOut',
       })
       .from(
         rightLeaves.current.children,
@@ -94,7 +198,7 @@ const LogoNatural = () => {
           scale: 0,
           rotation: -34,
           transformOrigin: '0% 100%',
-          ease: Elastic.easeOut.config(0.4, 0.5),
+          ease: 'elastic.out(0.4, 0.5)',
         },
         '-=1.5'
       )
@@ -106,7 +210,7 @@ const LogoNatural = () => {
           scale: 0,
           rotation: 34,
           transformOrigin: '100% 100%',
-          ease: Elastic.easeOut.config(0.4, 0.5),
+          ease: 'elastic.out(0.4, 0.5)',
         },
         '-=1.6'
       )
@@ -131,7 +235,7 @@ const LogoNatural = () => {
       duration: 0.8,
       opacity: 0,
       y: 50,
-      ease: 'power3',
+      ease: 'power3.out',
       stagger: {
         from: 'center',
         each: 0.02,
@@ -146,7 +250,7 @@ const LogoNatural = () => {
       .add(textTween.play(), 2)
   }, [])
   return (
-    <div className="LogoNaturalWrapper">
+    <LogoNaturalWrapper>
       <svg viewBox="0 0 1080 370">
         <path
           ref={BlackShapeRef}
@@ -216,8 +320,8 @@ const LogoNatural = () => {
             d="M537.265,282.89a2.466,2.466,0,0,0-.227-1.187c-.1-.245-.329-.571-1.146-.571a3.249,3.249,0,0,0-1.421.392,7.545,7.545,0,0,0-1.507.993,5.46,5.46,0,0,0-1.112,1.28,2.371,2.371,0,0,0-.414,1.214,1.053,1.053,0,0,0,.189.7.724.724,0,0,0,.572.195,2.14,2.14,0,0,0,.308-.024,6.12,6.12,0,0,0,3.071-1.842l.231-.222.242.211a7.182,7.182,0,0,0,2.359,1.4,7.947,7.947,0,0,0,2.643.446,12.312,12.312,0,0,0,4.112-.8,22.2,22.2,0,0,0,4.058-1.915"
             fill="none"
             stroke={smartBlue}
-            strokelinecap="round"
-            strokelinejoin="round"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />
           <path
             ref={TRef}
@@ -261,7 +365,7 @@ const LogoNatural = () => {
           />
         </g>
       </svg>
-    </div>
+    </LogoNaturalWrapper>
   )
 }
 
@@ -277,6 +381,7 @@ const Background = (props) => {
   const { clientXY } = props
 
   useEffect(() => {
+    gsap.registerPlugin(Physics2DPlugin)
     const flyingBlowTween = gsap.timeline({ repeat: -1, repeatDelay: 2 })
     flyingBlowTween.to(flyingBlowRef.current.children, {
       duration: 'random(12, 14)',
@@ -293,10 +398,7 @@ const Background = (props) => {
   }, [])
 
   return (
-    <animated.div
-      className="posRel"
-      style={{ transform: clientXY.xy.interpolate(trans3) }}
-    >
+    <BackgroundPosRel style={{ transform: clientXY.xy.interpolate(trans3) }}>
       <div ref={backgroundParallax} className="parallax">
         <svg viewBox="0 0 1080 540">
           <g ref={backgroundRef}>
@@ -453,7 +555,7 @@ const Background = (props) => {
           </g>
         </svg>
       </div>
-    </animated.div>
+    </BackgroundPosRel>
   )
 }
 
@@ -468,10 +570,7 @@ const Midground = (props) => {
   const { clientXY } = props
 
   return (
-    <animated.div
-      className="posRel"
-      style={{ transform: clientXY.xy.interpolate(trans2) }}
-    >
+    <MidgroundPosRel style={{ transform: clientXY.xy.interpolate(trans2) }}>
       <div ref={midgroundParallax} className="parallax">
         <svg viewBox="0 0 1080 540">
           <g ref={midgroundRef}>
@@ -504,7 +603,7 @@ const Midground = (props) => {
           </g>
         </svg>
       </div>
-    </animated.div>
+    </MidgroundPosRel>
   )
 }
 
@@ -518,10 +617,7 @@ const Foreground = (props) => {
   const { clientXY } = props
 
   return (
-    <animated.div
-      className="posRel"
-      style={{ transform: clientXY.xy.interpolate(trans1) }}
-    >
+    <ForegroundPosRel style={{ transform: clientXY.xy.interpolate(trans1) }}>
       <div ref={foregroundParallax} className="parallax">
         <svg viewBox="0 0 1080 540">
           <g ref={foregroundRef}>
@@ -625,7 +721,7 @@ const Foreground = (props) => {
           </g>
         </svg>
       </div>
-    </animated.div>
+    </ForegroundPosRel>
   )
 }
 
@@ -636,12 +732,12 @@ const ParallaxHero = () => {
   }))
   return (
     <>
-      <div className="hero">
-        <div className="waveSVGcontainer">
+      <HeroSection>
+        <WaveSVGcontainer>
           <div className="waveSVGmatrix">
             <WaveSVG />
           </div>
-        </div>
+        </WaveSVGcontainer>
         <LogoNatural />
         <h1>Back to smooth and firm skin</h1>
         <animated.div
@@ -654,8 +750,7 @@ const ParallaxHero = () => {
           <Midground clientXY={propsXY} />
           <Foreground clientXY={propsXY} />
         </animated.div>
-      </div>
-      <div className="sectionTwo"></div>
+      </HeroSection>
     </>
   )
 }
