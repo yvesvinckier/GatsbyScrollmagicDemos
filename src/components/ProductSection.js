@@ -242,7 +242,14 @@ const ProductSection = () => {
         },
         '-=3'
       )
-  })
+  }, [
+    ProductsImagesWrapper,
+    CreamLargeFoamDispenserRef,
+    CreamSmallFoamDispenserRef,
+    CreamTubeRef,
+    LargeFoamDispenserTextRef,
+    SmallFoamDispenserTextRef,
+  ])
   return (
     <>
       <TextSection ref={TextSectionTrigger}>

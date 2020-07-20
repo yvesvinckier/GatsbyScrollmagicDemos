@@ -9,11 +9,12 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Landscape from '../assets/images/landscape.png'
 import DeCesare from '../assets/images/de_cesare.png'
 
-import { images } from '../components/sequenceTwo'
+import { images } from '../components/ImageSequence'
 import Large0000 from '../assets/sequence_iphone/large_0000.png'
 
 import ParallaxHero from '../components/ParallaxHero'
 import ProductSection from '../components/ProductSection'
+import TextSection from '../components/TextSection'
 
 const SequenceSection = styled.div`
   background: ${(props) => props.theme.colors.smartBlack};
@@ -86,33 +87,6 @@ const SequenceSection = styled.div`
         height: 900px;
         width: 638px;
       }
-    }
-  }
-`
-
-const SlideZeroSection = styled.div`
-  .slide00wrapper {
-    position: relative;
-    width: 100vw;
-    padding: 190px 0;
-    .section-content {
-      margin-left: auto;
-      margin-right: auto;
-      width: 980px;
-    }
-    h2 {
-      font-size: 80px;
-      line-height: 1.05;
-      font-weight: 700;
-      letter-spacing: -0.015em;
-      color: ${(props) => props.theme.colors.secondary};
-    }
-    h3 {
-      font-size: 80px;
-      line-height: 1.05;
-      font-weight: 700;
-      letter-spacing: -0.015em;
-      color: ${(props) => props.theme.colors.smartBlack};
     }
   }
 `
@@ -356,14 +330,7 @@ const SimpleDemo = () => {
       </Helmet>
       <ParallaxHero />
       <ProductSection />
-      <SlideZeroSection>
-        <div className="slide00wrapper">
-          <div className="section-content">
-            <h2>Natural</h2>
-            <h3>Grounded in Research.</h3>
-          </div>
-        </div>
-      </SlideZeroSection>
+      <TextSection title={'Natural'} text={'Grounded in Research.'} />
       <HorizontalCrossReveal className="HorizontalComparisonSection">
         <div className="comparisonImage beforeImage">
           <img src={DeCesare} alt="before" />
@@ -390,14 +357,7 @@ const SimpleDemo = () => {
           </div>
         </div>
       </HorizontalCrossReveal>
-      <SlideZeroSection>
-        <div className="slide00wrapper">
-          <div className="section-content">
-            <h2>Do you know</h2>
-            <h3>how big is your environmental footprint?</h3>
-          </div>
-        </div>
-      </SlideZeroSection>
+
       <VerticalCrossReveal className="VerticalComparisonSection">
         <div className="verticalComparisonImage verticalBeforeImage">
           <img src={DeCesare} alt="before" />
@@ -424,17 +384,12 @@ const SimpleDemo = () => {
           </div>
         </div>
       </VerticalCrossReveal>
-      <SlideZeroSection>
-        <div className="slide00wrapper">
-          <div className="section-content">
-            <h2>Take Care</h2>
-            <h3>
-              You can get your skin and body in tip-top shape without taking
-              your toll on the environment.
-            </h3>
-          </div>
-        </div>
-      </SlideZeroSection>
+      <TextSection
+        title={'Take Care'}
+        text={
+          'You can get your skin and body in tip-top shape without taking your toll on the environment.'
+        }
+      />
       <SequenceSection>
         <div className="maxWidthContainer">
           <div ref={heroTrigger}>

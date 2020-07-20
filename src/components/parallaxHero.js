@@ -248,7 +248,7 @@ const LogoNatural = () => {
       .add(growFlower.play(), 0)
       .add(morphTween.play(), 0)
       .add(textTween.play(), 2)
-  }, [])
+  }, [NaturalRef, BlackShapeRef])
   return (
     <LogoNaturalWrapper>
       <svg viewBox="0 0 1080 370">
