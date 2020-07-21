@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 import DeCesare from '../assets/images/de_cesare.png'
-import Landscape from '../assets/images/landscape.png'
+import LandscapeTwo from '../assets/images/landscapeTwo.png'
 
 const HorizontalCrossRevealContainer = styled.section`
   position: relative;
@@ -73,6 +73,9 @@ const HorizontalCrossRevealContainer = styled.section`
 `
 
 export const HorizontalCrossReveal = () => {
+  const HorizontallandscapeImage = useRef(null)
+  const HorizontalLandscapeContainer = useRef(null)
+  const HorizontalSectionTrigger = useRef(null)
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger)
 
@@ -81,7 +84,7 @@ export const HorizontalCrossReveal = () => {
       gsap.core.globals('ScrollTrigger', ScrollTrigger)
     }
 
-    gsap.utils.toArray('.HorizontalComparisonSection').forEach((section) => {
+    gsap.utils.toArray(HorizontalSectionTrigger.current).forEach((section) => {
       let HorizontalCrossTween = gsap.timeline({
         scrollTrigger: {
           trigger: section,
@@ -97,13 +100,13 @@ export const HorizontalCrossReveal = () => {
       })
       // animate the container one way...
       HorizontalCrossTween.fromTo(
-        section.querySelector('.afterImage'),
+        HorizontalLandscapeContainer.current,
         { xPercent: 100, x: 0 },
         { xPercent: 0 }
       )
         // ...and the image the opposite way (at the same time)
         .fromTo(
-          section.querySelector('.afterImage img'),
+          HorizontallandscapeImage.current,
           { xPercent: -100, x: 0 },
           { xPercent: 0 },
           0
@@ -112,7 +115,10 @@ export const HorizontalCrossReveal = () => {
   }, [])
 
   return (
-    <HorizontalCrossRevealContainer className="HorizontalComparisonSection">
+    <HorizontalCrossRevealContainer
+      ref={HorizontalSectionTrigger}
+      className="HorizontalComparisonSection"
+    >
       <div className="comparisonImage beforeImage">
         <img src={DeCesare} alt="before" />
         <div className="men_wrapper">
@@ -120,8 +126,11 @@ export const HorizontalCrossReveal = () => {
           <p className="pro-job">Founder</p>
         </div>
       </div>
-      <div className="comparisonImage afterImage">
-        <img src={Landscape} alt="after" />
+      <div
+        ref={HorizontalLandscapeContainer}
+        className="comparisonImage afterImage"
+      >
+        <img ref={HorizontallandscapeImage} src={LandscapeTwo} alt="after" />
         <div className="landscape_wrapper">
           <div>
             <p className="quote">

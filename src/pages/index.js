@@ -11,8 +11,8 @@ import Large0000 from '../assets/sequence_iphone/large_0000.png'
 import ParallaxHero from '../components/ParallaxHero'
 import ProductSection from '../components/ProductSection'
 import TextSection from '../components/TextSection'
-import HorizontalCrossReveal from '../components/HorizontalCrossReveal'
 import VerticalCrossReveal from '../components/VerticalCrossReveal'
+import HorizontalCrossReveal from '../components/HorizontalCrossReveal'
 
 const SequenceSection = styled.div`
   background: ${(props) => props.theme.colors.smartBlack};

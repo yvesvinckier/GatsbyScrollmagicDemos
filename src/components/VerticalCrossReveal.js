@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-import DeCesare from '../assets/images/de_cesare.png'
+import MikeRichard from '../assets/images/mike_richard.png'
 import Landscape from '../assets/images/landscape.png'
 
 const VerticalCrossRevealContainer = styled.section`
@@ -118,7 +118,7 @@ export const VerticalCrossReveal = () => {
       className="VerticalComparisonSection"
     >
       <div className="verticalComparisonImage verticalBeforeImage">
-        <img src={DeCesare} alt="before" />
+        <img src={MikeRichard} alt="before" />
         <div className="vertical_men_wrapper">
           <h3 className="vertical_pro-name">Mike Richard</h3>
           <p className="vertical_pro-job">Skin Care Research</p>
