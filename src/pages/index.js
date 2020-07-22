@@ -1,7 +1,7 @@
 import React from 'react'
 import Helmet from 'react-helmet'
 
-import ParallaxHero from '../components/ParallaxHero'
+import ParallaxHero from '../components/parallaxHero'
 import ProductSection from '../components/ProductSection'
 import TextSection from '../components/TextSection'
 import VerticalCrossReveal from '../components/VerticalCrossReveal'
