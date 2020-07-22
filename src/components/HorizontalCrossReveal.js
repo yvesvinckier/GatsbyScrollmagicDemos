@@ -76,6 +76,9 @@ export const HorizontalCrossReveal = () => {
   const HorizontallandscapeImage = useRef(null)
   const HorizontalLandscapeContainer = useRef(null)
   const HorizontalSectionTrigger = useRef(null)
+  const HorizontalmenDescWrapper = useRef(null)
+  const HorizontalLandscapeQuoteText = useRef(null)
+
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger)
 
@@ -114,6 +117,39 @@ export const HorizontalCrossReveal = () => {
     })
   }, [])
 
+  useEffect(() => {
+    const HorizontalFadeInMenDesc = gsap.timeline({
+      scrollTrigger: {
+        trigger: HorizontalSectionTrigger.current,
+        start: 'center center',
+        end: () => '+=' + HorizontalSectionTrigger.current.offsetHeight / 4,
+        scrub: true,
+        anticipatePin: 1,
+        // markers: true,
+      },
+    })
+    HorizontalFadeInMenDesc.from(HorizontalmenDescWrapper.current, {
+      autoAlpha: 0,
+    })
+  }, [])
+
+  useEffect(() => {
+    const VerticalFadeInLandscapeQuote = gsap.timeline({
+      scrollTrigger: {
+        trigger: HorizontalSectionTrigger.current,
+        // 40% relative to the top of the viewport
+        start: 'bottom top',
+        end: () => '+=' + HorizontalSectionTrigger.current.offsetHeight / 4,
+        scrub: true,
+        anticipatePin: 1,
+        // markers: true,
+      },
+    })
+    VerticalFadeInLandscapeQuote.from(HorizontalLandscapeQuoteText.current, {
+      autoAlpha: 0,
+    })
+  }, [])
+
   return (
     <HorizontalCrossRevealContainer
       ref={HorizontalSectionTrigger}
@@ -121,7 +157,7 @@ export const HorizontalCrossReveal = () => {
     >
       <div className="comparisonImage beforeImage">
         <img src={DeCesare} alt="before" />
-        <div className="men_wrapper">
+        <div ref={HorizontalmenDescWrapper} className="men_wrapper">
           <h3 className="pro-name">Chris Burkard</h3>
           <p className="pro-job">Founder</p>
         </div>
@@ -131,19 +167,19 @@ export const HorizontalCrossReveal = () => {
         className="comparisonImage afterImage"
       >
         <img ref={HorizontallandscapeImage} src={LandscapeTwo} alt="after" />
-        <div className="landscape_wrapper">
-          <div>
-            <p className="quote">
-              <span>
-                « We only launch
-                <br />
-              </span>
-              <span>
-                what we love »<br />
-              </span>
-            </p>
-            <p className="white-name">John Buking</p>
-          </div>
+      </div>
+      <div ref={HorizontalLandscapeQuoteText} className="landscape_wrapper">
+        <div>
+          <p className="quote">
+            <span>
+              « We only launch
+              <br />
+            </span>
+            <span>
+              what we love »<br />
+            </span>
+          </p>
+          <p className="white-name">John Buking</p>
         </div>
       </div>
     </HorizontalCrossRevealContainer>

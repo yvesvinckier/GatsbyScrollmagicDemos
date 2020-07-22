@@ -150,7 +150,7 @@ const ProductSection = () => {
         start: 'bottom bottom',
         scrub: true,
         anticipatePin: 1,
-        markers: true,
+        // markers: true,
       },
     })
     tlIphoneScaleDownAnimation

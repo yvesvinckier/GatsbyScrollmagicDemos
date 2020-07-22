@@ -53,7 +53,7 @@ const VerticalCrossRevealContainer = styled.section`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 90%;
+    width: 100%;
     margin: 0 0;
     .vertical_white-name {
       font-weight: 700;
@@ -77,6 +77,8 @@ export const VerticalCrossReveal = () => {
   const landscapeImage = useRef(null)
   const landscapeContainer = useRef(null)
   const sectionTrigger = useRef(null)
+  const menDescWrapper = useRef(null)
+  const landscapeQuoteText = useRef(null)
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger)
 
@@ -112,6 +114,40 @@ export const VerticalCrossReveal = () => {
         0
       )
   }, [])
+
+  useEffect(() => {
+    const FadeInMenDesc = gsap.timeline({
+      scrollTrigger: {
+        trigger: sectionTrigger.current,
+        start: 'center center',
+        end: () => '+=' + sectionTrigger.current.offsetHeight / 4,
+        scrub: true,
+        anticipatePin: 1,
+        // markers: true,
+      },
+    })
+    FadeInMenDesc.from(menDescWrapper.current, {
+      autoAlpha: 0,
+    })
+  }, [])
+
+  useEffect(() => {
+    const FadeInLandscapeQuote = gsap.timeline({
+      scrollTrigger: {
+        trigger: sectionTrigger.current,
+        // 40% relative to the top of the viewport
+        start: 'bottom 40%',
+        end: () => '+=' + sectionTrigger.current.offsetHeight / 4,
+        scrub: true,
+        anticipatePin: 1,
+        // markers: true,
+      },
+    })
+    FadeInLandscapeQuote.from(landscapeQuoteText.current, {
+      autoAlpha: 0,
+    })
+  }, [])
+
   return (
     <VerticalCrossRevealContainer
       ref={sectionTrigger}
@@ -119,7 +155,7 @@ export const VerticalCrossReveal = () => {
     >
       <div className="verticalComparisonImage verticalBeforeImage">
         <img src={MikeRichard} alt="before" />
-        <div className="vertical_men_wrapper">
+        <div ref={menDescWrapper} className="vertical_men_wrapper">
           <h3 className="vertical_pro-name">Mike Richard</h3>
           <p className="vertical_pro-job">Skin Care Research</p>
         </div>
@@ -129,19 +165,19 @@ export const VerticalCrossReveal = () => {
         className="verticalComparisonImage verticalAfterImage"
       >
         <img ref={landscapeImage} src={Landscape} alt="after" />
-        <div className="vertical_landscape_wrapper">
-          <div>
-            <p className="vertical_quote">
-              <span>
-                « Less is more -
-                <br />
-              </span>
-              <span>
-                only the essentials »<br />
-              </span>
-            </p>
-            <p className="vertical_white-name">Mike Richard</p>
-          </div>
+      </div>
+      <div ref={landscapeQuoteText} className="vertical_landscape_wrapper">
+        <div>
+          <p className="vertical_quote">
+            <span>
+              « Less is more -
+              <br />
+            </span>
+            <span>
+              only the essentials »<br />
+            </span>
+          </p>
+          <p className="vertical_white-name">Mike Richard</p>
         </div>
       </div>
     </VerticalCrossRevealContainer>
