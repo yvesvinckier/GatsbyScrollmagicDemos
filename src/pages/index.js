@@ -7,6 +7,10 @@ import TextSection from '../components/TextSection'
 import VerticalCrossReveal from '../components/VerticalCrossReveal'
 import HorizontalCrossReveal from '../components/HorizontalCrossReveal'
 import VideoSequence from '../components/VideoSequence'
+import Stage from '../components/Stage'
+// import ImageVideoSequence from '../components/ImageVideoSequence'
+
+// import { images } from '../components/ImageSequence'
 
 const SimpleDemo = () => {
   return (
@@ -32,6 +36,8 @@ const SimpleDemo = () => {
         }
       />
       <VideoSequence />
+      {/* <ImageVideoSequence /> */}
+      <Stage />
     </>
   )
 }
